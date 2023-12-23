@@ -26,3 +26,13 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.1em;
 }
+
+.markup ul {
+  list-style-type: disc;
+  margin: 15px 0;
+  margin-left: 2em;
+}
+
+.markup code {
+  margin: 15px 0;
+}
