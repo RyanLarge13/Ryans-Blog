@@ -40,7 +40,7 @@ const Home = () => {
         />
         <p>Ryan Large - Software Engineer</p>
         <p className="text-xs">(kind of)</p>
-        <div className="bg-[#222] p-7 rounded-md shadow-md w-[500px] text-white">
+        <div className="bg-[#222] p-7 rounded-md shadow-md md:w-[500px] text-white">
           <h3 className="text-2xl mb-3">Ryan Large</h3>
           <p>
             What's up devs? If you're looking for a place to learn something

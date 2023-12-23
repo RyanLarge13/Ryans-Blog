@@ -14,7 +14,7 @@ const page = async () => {
   return (
     <main className="pt-40 px-10 lg:px-40">
       <h1 className="text-2xl mb-3">Worst Reads</h1>
-      <section className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <section className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3 gap-10 pb-10">
         {posts.map((post) => (
           <div
             key={post.id}

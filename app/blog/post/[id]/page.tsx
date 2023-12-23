@@ -49,7 +49,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         <img
           src={post?.headerImg}
           alt="header"
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full fixed inset-0 lg:relative z-[-1]"
         />
         <div className="bg-opacity-75 bg-black absolute bottom-0 right-0 left-0 p-5">
           <h1 className="text-6xl text-center border-b border-b-slate-400 pb-3 mb-10">
