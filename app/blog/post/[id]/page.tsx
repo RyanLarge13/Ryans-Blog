@@ -2,7 +2,20 @@ import { PrismaClient } from "@prisma/client";
 import { GrNotes } from "react-icons/gr";
 const prisma = new PrismaClient();
 
-const page = async ({ params }) => {
+type Post = {
+  id: string;
+  title: string;
+  desc: string;
+  featured: boolean;
+  headerImg: string;
+  likes: number;
+  markup: string;
+  createdAt: Date;
+  updatedAt: Date;
+  categoryid: string | null;
+};
+
+const page = async ({ params }: { params: { id: string } }) => {
   const getPost = async () => {
     "use server";
     const post = await prisma.blogPost.findUnique({
@@ -10,15 +23,25 @@ const page = async ({ params }) => {
         id: params.id,
       },
     });
+    if (!post) {
+      const defaultPost = {
+        id: "1i30hr403u09eu",
+        title: "No posts to show you. Sorry",
+        desc: "So sorry. Come back later",
+        featured: false,
+        headerImg: "",
+        likes: 0,
+        markup: `<p>: (</p>`,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        categoryid: null,
+      };
+      return defaultPost;
+    }
     return post;
   };
 
-  const getPrevPosts = async () => {
-    return [];
-  };
-
-  const post = await getPost();
-  const relatedPosts = await getPrevPosts();
+  const post: Post = await getPost();
 
   return (
     <main className="flex justify-center items-center flex-col lg:flex-row">
@@ -57,11 +80,7 @@ const page = async ({ params }) => {
           dangerouslySetInnerHTML={{ __html: post?.markup }}
           className="mt-20 px-5 md:px-10 lg:px-20 pb-10 markup"
         ></div>
-        <div className="bg-[#222] py-5 px-20 w-full">
-          {relatedPosts.map((relPost) => (
-            <div key={relPost.id}></div>
-          ))}
-        </div>
+        <div className="bg-[#222] py-5 px-20 w-full"></div>
       </section>
     </main>
   );
