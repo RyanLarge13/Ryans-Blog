@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { GrLike, GrLikeFill, GrStar } from "react-icons/gr";
+import { GrStar } from "react-icons/gr";
 const prisma = new PrismaClient();
 
 const page = async () => {
@@ -33,6 +33,7 @@ const page = async () => {
                 className="w-full md:w-[50%] rounded-sm h-[50vh] object-cover"
                 src={post.headerImg}
                 alt="header"
+                loading="lazy"
               />
               <div className="flex flex-col justify-center items-center px-10 my-5 md:my-0">
                 <h2 className="text-4xl text-center border-b-slate-400">

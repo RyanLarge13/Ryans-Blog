@@ -68,6 +68,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="h-[75vh] bg-transparent"></section>
       <Footer />
     </main>
   );
