@@ -32,32 +32,42 @@
   color: #444;
   font-style: underline;">Statically Typed</h3>
   <p>Here is an example of a statically typed variable in a language like <span style="font-style: italic;">C++, C, Java, Go, Rust,</span> etc.. etc.... etc....... the cool languages you know? And don't sit here judging, I know I left out a lot of languages that are cool and statically typed if you do know a little about what I mean, and of course if I spent the time writing them out instead of writing this last sentence defending my position for not writing these other languages out I could have avoided writing this long nonsense last sentence, but nah...</p>
-  <div style="background-color: #222; color: #fff; width: max-content; padding: 10px; border-radius: 10px; margin: 1em 0;">
+  <div style="background-color: #222; color: #fff; width: max-content; padding: 10px; border-radius: 10px; margin: 1em 0.25em;">
     <code>
-      <span style="color: red">int</span> myNumber <span style="color: aqua;">= </span> <span style="color: purple;">24</span>;
+      <span style="color: red">int</span> myNumber <span style="color: aqua;">= </span> <span style="color: pink;">24</span>;
     </code>
+    <p style="font-size: 0.5em; color: #aaa;">js</p>
   </div>
-  <p>What are you looking at here? Lets break it apart. in this short code snippet basically you are going to need to read it backwards. I am using C in this example, and many languages such as JavaScript, C++ and more use the same conventions as this where a ";" is used at the end of a statement for what they call a <span style="font-style: italic;">statement delimiter</span>, helping a compiler determine the end of one statement of code to the next.</p>
+  <p>What are you looking at here? Lets break it apart. We are going start by reading this code snippet backwards. I am using C in this example, and many languages such as JavaScript, C++ and more use the same conventions as in C where a ";" is used at the end of a statement for what they call a <span style="font-style: italic;">statement delimiter</span>, helping a compiler determine the end of one statement of code to the next.</p>
   <br>
-  <p> - Now, just to the right of our semicolon we see a value. Here we put the value 24.</p>
+  <p> - Now, just to the left of our semicolon we see a numeric value. Here we put the value 24.</p>
   <br>
-  <p> - To the left of this we have our assignment operator "="</p>
+  <p> - To the left of this we have our assignment operator "=", this will take out numeric value and place it within a variable</p>
   <br>
-  <p> - And to the left of that we name our value. We are going to name the value of 24 and its address in memory as the text "myNumber"</p>
+  <p> - And to the left of the assignment operator we give our value a name. We are going to name the value of 24 as the text "myNumber"</p>
   <br>
   <p> - Finally we have the part of this statement that actually matters. "int"..</p>
   <br>
+  <p>So, what is int? Simple, int is out static type definition. We are telling the compiler that our variable myNumber is of a specific type. An integer type.</p>
+  <br>
+  <p>Incase you did not already realize int is short for integer that is the case a matter of fact. There are a few reasons we want to specify the type of a variable, but we will go over more of that later. For now you understand that before initializing a variable we need to define its type in a statically typed language like C.</p>
   <h3 style="font-weight: 600;
   margin-top: 1.25em;
   color: #444;
   font-style: underline;">Dynamically Typed</h3>
   <p>Here is an example of a dynamically typed variable in a language like <span style="font-style: italic;">JavaScript, Python, ect.... ect.......</span></p>
   <p>Don' say it.</p>
-  <div style="background-color: #222; color: #fff; width: max-content; padding: 10px; border-radius: 10px; margin: 1em 0;">
+  <div style="background-color: #222; color: #fff; width: max-content; padding: 10px; border-radius: 10px; margin: 1em 0.25em;">
     <code>
       <span style="color: red">const</span> myNumber <span style="color: aqua;">= </span> <span style="color: purple;">24</span>;
     </code>
+    <p style="font-size: 0.5em; color: #aaa;">js</p>
   </div>
+  <p>So what is the difference here from the former code snippet? we have the same attributes when put together form out statement. You are correct if you think this, but of course there is a minor difference right? Our type is different. This code snippet is written in JavaScript and when you do not know exactly what you are looking at they truly look the same, but just know this is the case for now.</p>
+  <br>
+  <p>So what is a const type and if const is a type and we intentionally type out this type how is it any different at all from the statically typed example? Great question. For the sake of your sanity the const declaration is not a type. It is only a way to say "hey, this variable myNumber is not allowed to be reassigned to any new value, EVER.</p>
+  <br>
+  <p>This means that in JavaScript, our myNumber variable is not assigned to be of a certain type. If you remember I did mention that there are numerous reason that defining types for your variables is useful. Well it is also necessary for the computer to know exactly how to store your variables value in memory. Thus arises the question of how JavaScript knows that myNumber is a number?</p>
 </body>
 
 </html>

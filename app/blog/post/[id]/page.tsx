@@ -52,7 +52,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           className="object-cover w-full h-full fixed inset-0 lg:relative z-[-1]"
         />
         <div className="bg-opacity-75 bg-black absolute bottom-0 right-0 left-0 p-5">
-          <h1 className="text-6xl text-center border-b border-b-slate-400 pb-3 mb-10">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl text-center border-b border-b-slate-400 pb-3 mb-10">
             {post?.title}
           </h1>
           <div className="flex justify-between items-center">
