@@ -43,6 +43,20 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   const post: Post = await getPost();
 
+  const getTimeDuration = () => {
+    const lengthOfMarkup = post.markup.length;
+    const minutes = Math.floor(Math.floor(lengthOfMarkup / 210) / 10);
+    if (minutes >= 60) {
+      return `${minutes / 60} hour read`;
+    }
+    if (minutes < 1) {
+      return "1 minute read";
+    }
+    return `${minutes} minute read`;
+  };
+
+  const duration = getTimeDuration();
+
   return (
     <main className="flex justify-center items-center flex-col lg:flex-row">
       <section className="w-full h-screen relative">
@@ -55,6 +69,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           <h1 className="text-3xl md:text-4xl lg:text-6xl text-center border-b border-b-slate-400 pb-3 mb-10">
             {post?.title}
           </h1>
+          <p>{duration}</p>
           <div className="flex justify-between items-center">
             <h2 className="text-xs italic">
               Posted by{" "}
