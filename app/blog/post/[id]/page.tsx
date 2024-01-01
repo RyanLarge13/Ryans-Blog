@@ -45,7 +45,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   const getTimeDuration = () => {
     const lengthOfMarkup = post.markup.length;
-    const minutes = Math.floor(Math.floor(lengthOfMarkup / 210) / 4);
+    const minutes = Math.floor(Math.floor(lengthOfMarkup / 210) / 8);
     if (minutes >= 60) {
       return `${minutes / 60} hour read`;
     }
