@@ -149,7 +149,7 @@
       <code>
         <span style="color: red">const</span> myNumber
         <span style="color: aqua">= </span>
-        <span style="color: purple">24</span>;
+        <span style="color: pink">24</span>;
       </code>
       <p style="font-size: 0.75em; color: #aaa">.js</p>
     </div>
@@ -189,12 +189,93 @@
     </p>
     <br />
     <p>
-      This approach therfore creates an environment where types do not need to
-      be specified within the language iitself because at compile time our types
-      will be assigned by the interpreter or compiler for us instead.
+      This approach therefore creates an environment where types do not need to
+      be specified within the language itself because at compile time types will
+      be assigned by the interpreter or compiler for us instead.
     </p>
     <h2 style="font-size: 1.25em; font-weight: 600; margin-top: 1.25em">
       Primitive Types
     </h2>
+    <p>
+      Now we have gone over some basic ideas on how JavaScript and other
+      languages might handle types. Let's now dig into the grouping of data
+      types in JavaScript
+    </p>
+    <h3
+      style="
+        font-weight: 600;
+        margin-top: 1.25em;
+        color: #444;
+        font-style: underline;
+      "
+    >
+      Primitive Types
+    </h3>
+    <p>let's list out out Primitive Types after a brief definition</p>
+    <br />
+    <p style="font-weight: bold">
+      Primitive types are the basic building blocks of a programming language.
+      They reprisent simple values such as integers, strings, booleans and are
+      not composed of other data types
+    </p>
+    <ul>
+      <li>Integers</li>
+      <li>Floating point numbers</li>
+      <li>Booleans</li>
+      <li>Strings</li>
+      <li>Undefined</li>
+      <li>Null</li>
+      <li>Symbols >= ES6</li>
+    </ul>
+    <p style="font-style: italic">Integers</p>
+    <div
+      style="
+        background-color: #222;
+        color: #fff;
+        width: max-content;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 1em 0.25em;
+      "
+    >
+      <code>
+        <span style="color: red">const</span> myNumber
+        <span style="color: aqua">= </span>
+        <span style="color: pink">24</span>;
+      </code>
+      <p style="font-size: 0.75em; color: #aaa">.js</p>
+    </div>
+    <p>
+      Integer types are determined by reading the binary value of a variable,
+      shifting each value over by 1 bit and attaching a 0 at the end
+      representing a small integer type
+    </p>
+    <br />
+    <p style="font-style: italic">Floating point numbers</p>
+    <div
+      style="
+        background-color: #222;
+        color: #fff;
+        width: max-content;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 1em 0.25em;
+      "
+    >
+      <code>
+        <span style="color: red">const</span> myNumber
+        <span style="color: aqua">= </span>
+        <span style="color: pink">24.74356</span>;
+      </code>
+      <p style="font-size: 0.75em; color: #aaa">.js</p>
+    </div>
+    <p>
+      Floating type integers are determined by reading the binary value of
+      your variable and a bit pointer with a value greater than 0 in the case of small integer types directed towards a more complex object where a fraction, exponent and sign but are stored for precision and efficiency
+    </p>
+    <p>
+      Primitive types in JavaScript are dynamically determined like we
+      established earlier
+    </p>
   </body>
 </html>
