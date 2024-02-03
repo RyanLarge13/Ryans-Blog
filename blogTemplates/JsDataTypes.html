@@ -1,259 +1,394 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
-
-<body>
-  <h2 style="text-align: center; font-size: 2em; margin-bottom: 2em">
-    Intro
-  </h2>
-  <p>Lets talk about data types in JavaScript.</p>
-  <br />
-  <p>We will go over two different data types in JS...</p>
-  <ul>
-    <li>Primitive Types</li>
-    <li>Object Types</li>
-  </ul>
-  <p>
-    But before we talk about these we are going to first talk about the method
-    JavaScript uses to define its types
-  </p>
-  <h2 style="font-size: 1.25em; font-weight: 600; margin-top: 1.25em">
-    Dynamically Typed Language
-  </h2>
-  <p>
-    Javascript is a
-    <strong style="font-weight: 600">dynamically</strong> typed language. This
-    is extremely important to understand so let me make it clear with examples
-    of what I mean by a dynamically typed language and how it works. There are
-    two different ways a language can determine its types of variables,
-    objects, structs and more:
-  </p>
-  <ul>
-    <li>Dynamically</li>
-    <li>Statically</li>
-  </ul>
-  <h3 style="
-        font-weight: 600;
-        margin-top: 1.25em;
-        color: #444;
-        font-style: underline;
-      ">
-    Statically Typed
-  </h3>
-  <p>
-    Here is an example of a statically typed variable in a language like
-    <span style="font-style: italic">C++, C, Java, Go, Rust,</span> etc..
-    etc.... etc.......
-  </p>
-  <div style="
-        background-color: #222;
-        color: #fff;
-        width: 50%;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 1em 0.25em;
-      ">
-    <code>
-      <span style="color: red">int</span> myNumber
-      <span style="color: aqua">= </span> <span style="color: #0f6">24</span>;
-    </code>
-    <p style="font-size: 0.75em; color: #aaa">.c</p>
-  </div>
-  <p>
-    What are you looking at here? Lets break it apart. We are going start by
-    reading this code snippet backwards. I am using C in this example, and
-    many languages such as JavaScript, C++ and more use the same conventions
-    as in C where a ";" is used at the end of a statement for what they call a
-    <span style="font-style: italic">statement delimiter</span>, helping a
-    compiler determine the end of one statement of code to the next. This is
-    where we will start.
-  </p>
-  <br />
-  <ol>
-    <li>
-      - Just to the left of our semicolon we see a numeric value. Here we put
-      the value 24.
-    </li>
-    <li>
-      - To the left of this we have our assignment operator "=", this will take
-      out numeric value on the right side of the equal sign and place it within
-      a variable name that we create.
-    </li>
-    <li>
-      - To the left of the assignment operator we give our value a name. We are
-      going to name the value of 24 as the text "myNumber". The equal sign in
-      going to place 24 inside of myNumber
-    </li>
-    <li>
-      - Finally we have the part of this statement that actually matters in this
-      article. "int"..
-    </li>
-  </ol>
-  <p>
-    So, what is int? Simple, int is out static type definition. We are telling
-    the compiler that our variable myNumber is of a specific type. An integer
-    type.
-  </p>
-  <br />
-  <p>
-    Incase you did not already realize int is short for integer, it is. As we
-    can clearly determine as humans without much effort the value of our
-    variable myNumber is a number (eg. 24) a computer needs to determine this
-    as well. It needs to know what type our value will be that our variable
-    holds. There are a few reasons we want to specify the type of a variable,
-    but we will go over more of that later. For now, understand that before
-    initializing a variable we need to define its type in a statically typed
-    language like C.
-  </p>
-  <br />
-  <p>
-    Why is this? We tell the compiler what type our variables value is so
-    knows exactly where and how to store our variable in memory.
-  </p>
-  <h3 style="
-        font-weight: 600;
-        margin-top: 1.25em;
-        color: #444;
-        font-style: underline;
-      ">
-    Dynamically Typed
-  </h3>
-  <p>
-    Here is an example of a dynamically typed variable in a language like
-    <span style="font-style: italic">JavaScript, Python, Ruby, PHP, Perl, ect. ect...</span>
-  </p>
-  <div style="
-        background-color: #222;
-        color: #fff;
-        width: 50%;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 1em 0.25em;
-      ">
-    <code>
-      <span style="color: red">const</span> myNumber
-      <span style="color: aqua">= </span>
-      <span style="color: #0f6">24</span>;
-    </code>
-    <p style="font-size: 0.75em; color: #aaa">.js</p>
-  </div>
-  <p>
-    So what is the difference here from the former code snippet? There is a
-    minor difference right? Our type is different. This code snippet is
-    written in JavaScript and the important thing to note here is that our
-    type "const" is actually not a type at all.
-  </p>
-  <br />
-  <p>
-    So what is const? Const It is a reserve word in many languages and a way to say
-    "hey, this variable myNumber is not allowed to be reassigned to any new
-    value, EVER.". So we are no longer allowed to say myNumber = 10, or myNumber = 24, or perform any other reassigning operation ever again
-    within the scope of this variable.
-  </p>
-  <br />
-  <p>
-    Anyway let's talk about what matters here. Since const is not a type,
-    this means that in Javascript and many other dynamically types languages,
-    our myNumber variable is not assigned to be of a certain type at all.
-  </p>
-  <br />
-  <p>
-    So how does our compiler, (or interpreter in the case with JavaScript)
-    know what type our "myNumber" variable is?
-  </p>
-  <br />
-  <p>
-    You've guessed it correctly if you think that it is figured out on its
-    own. For JavaScript there is a time and place for this operation to take place
-    during compilation and interpreting. Normally for a typical Javascript Engine there is an optimization phase where the engine
-    takes the time analyzing your variables and evaluate past and present
-    implementations of them to better understand a variables evolution within
-    the program and properly assign it a type.
-  </p>
-  <br />
-  <p>It is extremely important to know that at the end of the day, before machine code and before being processed by the cpu, each variable must have a type. The JavaScript engine running in your browser will do this based on the values that you assign to your variables and how they are used within the context of the application or website you are building. This allows for dynamic type inference at runtime therfore creating a unique and user friendly way to write code. Is this good or bad? We will talk more on that later.</p>
-  <br />
-  <p>
-    This approach therefore creates an environment where types do not need to
-    be specified within the language itself because at compile time types will
-    be assigned by the Javascript engine interpreter for us instead.
-  </p>
-  <h2 style="font-size: 1.25em; font-weight: 600; margin-top: 1.25em">
-    Primitive Types
-  </h2>
-  <p>
-    Now we have gone over some basic ideas on how JavaScript and other
-    languages might handle types, let's dig into the grouping of the two major data
-    types in JavaScript
-  </p>
-  <h3 style="
-        font-weight: 600;
-        margin-top: 1.25em;
-        color: #444;
-        font-style: underline;
-      ">
-    Primitive Types
-  </h3>
-  <p>let's list out out Primitive Types after a brief definition</p>
-  <br />
-  <p style="font-weight: bold">
-    Primitive types are the basic building blocks of a programming language.
-    They represent simple values such as integers, strings, booleans and are
-    not composed of other data types such as a struct. We will go over the types of these variables and how a Javascript engine assigns these types. Essentially all examples will be in the context of Javascript. All JavaScript values are determined by literals and syntax.. Scary I would say
-  </p>
-  <ul>
-    <li>Integers</li>
-    <li>Floating point numbers</li>
-    <li>Booleans</li>
-    <li>Strings</li>
-    <li>Undefined</li>
-    <li>Null</li>
-    <li>Symbols >= ES6</li>
-  </ul>
-  <p style="font-style: italic">Integers</p>
-  <div style="
-        background-color: #222;
-        color: #fff;
-        width: 50%;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 1em 0.25em;
-      ">
-    <code>
-      <span style="color: red">const</span> myNumber
-      <span style="color: aqua">= </span>
-      <span style="color: #0f6">24</span>;
-    </code>
-    <p style="font-size: 0.75em; color: #aaa">.js</p>
-  </div>
-  <p>
-    Integers are interpreted as numeric literals. As the engine parses your program and comes across the value 2, the engine will tag this variable with the integer type by knowing that if there are no single or double quotes around the number and as long as it is a valid number and not a character of some sort the engine will be pretty confident you have assigned "myNumber" to equal a number and tag the variable with that type
-  </p>
-  <br />
-  <p style="font-style: italic">Floating point numbers</p>
-  <div style="
-        background-color: #222;
-        color: #fff;
-        width: 50%;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 1em 0.25em;
-      ">
-    <code>
-      <span style="color: red">const</span> myNumber
-      <span style="color: aqua">= </span>
-      <span style="color: #0f6">24.74356</span>;
-    </code>
-    <p style="font-size: 0.75em; color: #aaa">.js</p>
-  </div>
-  <p>
-    As like integers, in JavaScript Engines will first look at the value you have stored in myNumber check if it is surrounded by single or double quotes and if it is not a character.
-  </p>
-</body>
-
+    <body>
+        <h2 style="text-align: center; font-size: 2em; margin-bottom: 2em">
+            Intro
+        </h2>
+        <p>Lets talk about data types in JavaScript.</p>
+        <br />
+        <p>We will go over two different data types in JS...</p>
+        <ul>
+            <li>Primitive Types</li>
+            <li>Object Types</li>
+        </ul>
+        <p>
+            But before we talk about these we are going to first talk about the
+            method JavaScript uses to define its types
+        </p>
+        <h2 style="font-size: 1.25em; font-weight: 600; margin-top: 1.25em">
+            Dynamically Typed Language
+        </h2>
+        <p>
+            Javascript is a
+            <strong style="font-weight: 600">dynamically</strong> typed
+            language. This is extremely important to understand so let me make
+            it clear with examples of what I mean by a dynamically typed
+            language and how it works. There are two different ways a language
+            can determine its types of variables, objects, structs and more:
+        </p>
+        <ul>
+            <li>Dynamically</li>
+            <li>Statically</li>
+        </ul>
+        <h3
+            style="
+                font-weight: 600;
+                margin-top: 1.25em;
+                color: #444;
+                font-style: underline;
+            "
+        >
+            Statically Typed
+        </h3>
+        <p>
+            Here is an example of a statically typed variable in a language like
+            <span style="font-style: italic">C++, C, Java, Go, Rust,</span>
+            etc.. etc.... etc.......
+        </p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">int</span> myNumber
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">24</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.c</p>
+        </div>
+        <p>
+            What are you looking at here? Lets break it apart. We are going
+            start by reading this code snippet backwards. I am using C in this
+            example, and many languages such as JavaScript, C++ and more use the
+            same conventions as in C where a ";" is used at the end of a
+            statement for what they call a
+            <span style="font-style: italic">statement delimiter</span>, helping
+            a compiler determine the end of one statement of code to the next.
+            This is where we will start.
+        </p>
+        <br />
+        <ol>
+            <li>
+                - Just to the left of our semicolon we see a numeric value. Here
+                we put the value 24.
+            </li>
+            <li>
+                - To the left of this we have our assignment operator "=", this
+                will take out numeric value on the right side of the equal sign
+                and place it within a variable name that we create.
+            </li>
+            <li>
+                - To the left of the assignment operator we give our value a
+                name. We are going to name the value of 24 as the text
+                "myNumber". The equal sign in going to place 24 inside of
+                myNumber
+            </li>
+            <li>
+                - Finally we have the part of this statement that actually
+                matters in this article. "int"..
+            </li>
+        </ol>
+        <p>
+            So, what is int? Simple, int is out static type definition. We are
+            telling the compiler that our variable myNumber is of a specific
+            type. An integer type.
+        </p>
+        <br />
+        <p>
+            Incase you did not already realize int is short for integer, it is.
+            As we can clearly determine as humans without much effort the value
+            of our variable myNumber is a number (eg. 24) a computer needs to
+            determine this as well. It needs to know what type our value will be
+            that our variable holds. There are a few reasons we want to specify
+            the type of a variable, but we will go over more of that later. For
+            now, understand that before initializing a variable we need to
+            define its type in a statically typed language like C.
+        </p>
+        <br />
+        <p>
+            Why is this? We tell the compiler what type our variables value is
+            so knows exactly where and how to store our variable in memory.
+        </p>
+        <h3
+            style="
+                font-weight: 600;
+                margin-top: 1.25em;
+                color: #444;
+                font-style: underline;
+            "
+        >
+            Dynamically Typed
+        </h3>
+        <p>
+            Here is an example of a dynamically typed variable in a language
+            like
+            <span style="font-style: italic"
+                >JavaScript, Python, Ruby, PHP, Perl, ect. ect...</span
+            >
+        </p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> myNumber
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">24</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            So what is the difference here from the former code snippet? There
+            is a minor difference right? Our type is different. This code
+            snippet is written in JavaScript and the important thing to note
+            here is that our type "const" is actually not a type at all.
+        </p>
+        <br />
+        <p>
+            So what is const? Const It is a reserve word in many languages and a
+            way to say "hey, this variable myNumber is not allowed to be
+            reassigned to any new value, EVER.". So we are no longer allowed to
+            say myNumber = 10, or myNumber = 24, or perform any other
+            reassigning operation ever again within the scope of this variable.
+        </p>
+        <br />
+        <p>
+            Anyway let's talk about what matters here. Since const is not a
+            type, this means that in Javascript and many other dynamically types
+            languages, our myNumber variable is not assigned to be of a certain
+            type at all.
+        </p>
+        <br />
+        <p>
+            So how does our compiler, (or interpreter in the case with
+            JavaScript) know what type our "myNumber" variable is?
+        </p>
+        <br />
+        <p>
+            You've guessed it correctly if you think that it is figured out on
+            its own. For JavaScript there is a time and place for this operation
+            to take place during compilation and interpreting. Normally for a
+            typical Javascript Engine there is an optimization phase where the
+            engine takes the time analyzing your variables and evaluate past and
+            present implementations of them to better understand a variables
+            evolution within the program and properly assign it a type.
+        </p>
+        <br />
+        <p>
+            It is extremely important to know that at the end of the day, before
+            machine code and before being processed by the cpu, each variable
+            must have a type. The JavaScript engine running in your browser will
+            do this based on the values that you assign to your variables and
+            how they are used within the context of the application or website
+            you are building. This allows for dynamic type inference at runtime
+            therfore creating a unique and user friendly way to write code. Is
+            this good or bad? We will talk more on that later.
+        </p>
+        <br />
+        <p>
+            This approach therefore creates an environment where types do not
+            need to be specified within the language itself because at compile
+            time types will be assigned by the Javascript engine interpreter for
+            us instead.
+        </p>
+        <h2 style="font-size: 1.25em; font-weight: 600; margin-top: 1.25em">
+            Primitive Types
+        </h2>
+        <p>
+            Now we have gone over some basic ideas on how JavaScript and other
+            languages might handle types, let's dig into the grouping of the two
+            major data types in JavaScript
+        </p>
+        <h3
+            style="
+                font-weight: 600;
+                margin-top: 1.25em;
+                color: #444;
+                font-style: underline;
+            "
+        >
+            Primitive Types
+        </h3>
+        <p>let's list out out Primitive Types after a brief definition</p>
+        <br />
+        <p style="font-weight: bold">
+            Primitive types are the basic building blocks of a programming
+            language. They represent simple values such as integers, strings,
+            booleans and are not composed of other data types such as a struct.
+            We will go over the types of these variables and how a Javascript
+            engine assigns these types. Essentially all examples will be in the
+            context of Javascript. All JavaScript values are determined by
+            literals and syntax.. Scary I would say
+        </p>
+        <ul>
+            <li>Integers</li>
+            <li>Floating point numbers</li>
+            <li>Booleans</li>
+            <li>Strings</li>
+            <li>Undefined</li>
+            <li>Null</li>
+            <li>Symbols >= ES6</li>
+        </ul>
+        <p style="font-style: italic">Integers</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> myNumber
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">24</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            Integers are interpreted as numeric literals. As the engine parses
+            your program and comes across the value 2, the engine will tag this
+            variable with the integer type by knowing that if there are no
+            single or double quotes around the number and as long as it is a
+            valid number and not a character of some sort the engine will be
+            pretty confident you have assigned "myNumber" to equal a number and
+            tag the variable with that type
+        </p>
+        <br />
+        <p style="font-style: italic">Floating point numbers</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> myNumber
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">24.74356</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            As like integers, in JavaScript Engines will first look at the value
+            you have stored in myNumber and check if it is surrounded by single
+            or double quotes and if it is not a character. Additionally the
+            engine will notice the period within the numeric literal indicating
+            it should be of a floating point number
+        </p>
+        <p style="font-style: italic">Strings</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> myName
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">"Ryan"</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            I Javascript, strings can be wrapped in both single and soluble
+            quotes. The engine will directly understand that the value assigned
+            to your variable is a string by the double or single quotes around
+            your value. Another great example of type inference by syntax
+        </p>
+        <p style="font-style: italic">Boolean</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> myNameIsRyan
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">true</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            Booleans are tagged with a type by the literal text of your value.
+            true and false are reserve words unless wrapped in single or double
+            quotes. So the JavaScriot engine can quickly determine the type of a
+            true or false Boolean value
+        </p>
+        <p style="font-style: italic">Undefined</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> whatIsThis
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">undefined</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            
+        </p>
+        <p style="font-style: italic">Null</p>
+        <div
+            style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            "
+        >
+            <code>
+                <span style="color: red">const</span> whatIsThis
+                <span style="color: aqua">= </span>
+                <span style="color: #0f6">null</span>;
+            </code>
+            <p style="font-size: 0.75em; color: #aaa">.js</p>
+        </div>
+        <p>
+            
+        </p>
+    </body>
 </html>
