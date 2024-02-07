@@ -190,7 +190,7 @@
     do this based on the values that you assign to your variables and
     how they are used within the context of the application or website
     you are building. This allows for dynamic type inference at runtime
-    therfore creating a unique and user friendly way to write code. Is
+    therefore creating a unique and user friendly way to write code. Is
     this good or bad? We will talk more on that later.
   </p>
   <br />
@@ -236,7 +236,7 @@
     <li>Null</li>
     <li>Symbols >= ES6</li>
   </ul>
-  <p style="font-style: italic">Integers</p>
+  <p style="font-style: italic" font-weight: bold;>Integers</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -262,7 +262,7 @@
     tag the variable with that type
   </p>
   <br />
-  <p style="font-style: italic">Floating point numbers</p>
+  <p style="font-style: italic" font-weight: bold;>Floating point numbers</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -272,7 +272,7 @@
                 margin: 1em 0.25em;
             ">
     <code>
-      <span style="color: red">const</span> myNumber
+      <span style="color: red">const</span> myFloat
       <span style="color: aqua">= </span>
       <span style="color: #0f6">24.74356</span>;
     </code>
@@ -280,12 +280,12 @@
   </div>
   <p>
     As like integers, in JavaScript Engines will first look at the value
-    you have stored in myNumber and check if it is surrounded by single
+    you have stored in myFloat and check if it is surrounded by single
     or double quotes and if it is not a character. Additionally the
     engine will notice the period within the numeric literal indicating
     it should be of a floating point number
   </p>
-  <p style="font-style: italic">Strings</p>
+  <p style="font-style: italic" font-weight: bold;>Strings</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -295,19 +295,19 @@
                 margin: 1em 0.25em;
             ">
     <code>
-      <span style="color: red">const</span> myName
+      <span style="color: red">const</span> myString
       <span style="color: aqua">= </span>
-      <span style="color: #0f6">"Ryan"</span>;
+      <span style="color: rgb(255, 251, 0)">"Hey, I am a string"</span>;
     </code>
     <p style="font-size: 0.75em; color: #aaa">.js</p>
   </div>
   <p>
-    I Javascript, strings can be wrapped in both single and soluble
+    I JavaScript, strings can be wrapped in both single and double
     quotes. The engine will directly understand that the value assigned
     to your variable is a string by the double or single quotes around
     your value. Another great example of type inference by syntax
   </p>
-  <p style="font-style: italic">Boolean</p>
+  <p style="font-style: italic" font-weight: bold;>Boolean</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -319,17 +319,18 @@
     <code>
       <span style="color: red">const</span> myNameIsRyan
       <span style="color: aqua">= </span>
-      <span style="color: #0f6">true</span>;
+      <span style="color: rgb(255, 0, 140)">true</span>;
     </code>
     <p style="font-size: 0.75em; color: #aaa">.js</p>
   </div>
   <p>
     Booleans are tagged with a type by the literal text of your value.
     true and false are reserve words unless wrapped in single or double
-    quotes. So the JavaScriot engine can quickly determine the type of a
+    quotes. So the JavaScript engine can quickly determine the type of a
     true or false Boolean value
   </p>
-  <p style="font-style: italic">Undefined</p>
+  <br />
+  <p style="font-style: italic" font-weight: bold;>Undefined</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -339,9 +340,9 @@
                 margin: 1em 0.25em;
             ">
     <code>
-      <span style="color: red">const</span> whatIsThis
+      <span style="color: red">const</span> uninitializedType
       <span style="color: aqua">= </span>
-      <span style="color: #0f6">undefined</span>;
+      <span style="color: rgb(183, 0, 255)">undefined</span>;
     </code>
     <p style="font-size: 0.75em; color: #aaa">.js</p>
   </div>
@@ -350,7 +351,8 @@
   </p>
   <br />
   <p>The JavaScript engine will tag your variable with undefined if you do not explicitly set a value, or use the key word undefined</p>
-  <p style="font-style: italic">Null</p>
+  <br />
+  <p style="font-style: italic; font-weight: bold;">Null</p>
   <div style="
                 background-color: #222;
                 color: #fff;
@@ -362,7 +364,7 @@
     <code>
       <span style="color: red">const</span> whatIsThis
       <span style="color: aqua">= </span>
-      <span style="color: #0f6">null</span>;
+      <span style="color: rgb(183, 0, 255)">null</span>;
     </code>
     <p style="font-size: 0.75em; color: #aaa">.js</p>
   </div>
@@ -376,19 +378,40 @@
                 color: #444;
                 font-style: underline;
             ">
-    Object Types
+    Primitive Types
   </h3>
   <p>let's list out out JavaScripts Object types and explain them after a brief definition</p>
   <br />
   <p style="font-weight: bold">
     As in our primitive types section we will be covering object types in the context of JavaScript.
-    Object types unlike primitive types are composed of other data types. They can be composed of other object types or primitive type data types and often times allow for a more dynamic approch to handling and manipulating data in a programming language. We will be discussing...
+    Object types unlike primitive types are composed of other data types. They can be composed of other object types or primitive type data types and often times allow for a more dynamic approach to handling and manipulating data in a programming language. We will be discussing...
   </p>
   <ul>
     <li>Objects</li>
     <li>Arrays</li>
     <li>Functions</li>
   </ul>
+  <br />
+  <p style="font-style: italic; font-weight: bold;">JavaScript Objects</p>
+  <div style="
+                background-color: #222;
+                color: #fff;
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                margin: 1em 0.25em;
+            ">
+    <code>
+      <span style="color: red">const</span> whatIsThis
+      <span style="color: aqua">= </span>
+      <span style="color: rgb(183, 0, 255)">null</span>;
+    </code>
+    <p style="font-size: 0.75em; color: #aaa">.js</p>
+  </div>
+  <p>
+    Null is designed to tell the JavaScript engine that your variable is meant to hold no value or that a function will return no value. Unlike undefined null must be explicitly set.
+  </p>
+  <br />
 </body>
 
 </html>
