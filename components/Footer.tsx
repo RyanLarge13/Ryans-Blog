@@ -2,7 +2,7 @@ import { GrGithub, GrTwitter } from "react-icons/gr";
 
 const Footer = () => {
   return (
-    <footer className="h-[50vh] bg-[#222] flex flex-col justify-center items-center text-center gap-y-10">
+    <footer className="h-[50vh] bg-[#222] flex flex-col justify-center items-center text-center gap-y-10 cinzel">
       <ul>
         <li>
           <a href="/">home</a>

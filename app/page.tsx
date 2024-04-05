@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 const Home = () => {
   return (
-    <main className="">
+    <main className="cinzel">
       <section className="h-screen px-5 lg:px-40 bg-[#222]">
         <HeroText />
       </section>

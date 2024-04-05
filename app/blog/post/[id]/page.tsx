@@ -59,7 +59,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="flex justify-center items-center flex-col lg:flex-row">
-      <section className="w-full h-screen relative">
+      <section className="w-full h-screen relative cinzel">
         <img
           src={post?.headerImg}
           alt="header"

@@ -3,31 +3,22 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
- font-family: "Cinzel", serif;
-}
-
 body {
   background-color: #222;
   color: #fff;
+}
+
+.cinzel {
   font-family: "Cinzel", serif;
 }
 
-.markup h1 {
-  font-family: "Cinzel", serif;
-}
-.markup h2 {
-  font-family: "Cinzel", serif;
-}
-.markup h3 {
-  font-family: "Cinzel", serif;
-}
-.markup h4 {
-  font-family: "Cinzel", serif;
+.markup {
+  font-family: "Cinzel", Georgia, "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: small;
 }
 
 .markup p {
-  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.1em;
 }
 

@@ -20,7 +20,7 @@ const HeroText = () => {
 
   return (
     <div
-      className="fixed top-[50%] right-40 left-40 flex flex-col justify-end items-center pointer-events-none"
+      className="fixed top-[50%] right-40 left-40 flex flex-col justify-end items-center pointer-events-none cinzel"
       style={{ opacity: opacity }}
     >
       <div

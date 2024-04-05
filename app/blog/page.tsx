@@ -13,15 +13,15 @@ const page = async () => {
 
   return (
     // <main className="pt-40 px-10 lg:px-40">
-    <main>
+    <main className="cinzel">
       <section className="grid grid-cols-1 md:grid-cols-2">
         {posts.map((post, index) => (
           <a key={post.id} href={`/blog/post/${post.id}`}>
             <div
-              className={`bg-[#333] cursor-pointer relative w-full h-full flex flex-col md:flex-row justify-center items-center duration-200 hover:scale-95 ${
+              className={`bg-[#333] cursor-pointer relative w-full h-full flex flex-col justify-center items-center duration-200 hover:scale-95 ${
                 index % 4 === 0 || (index - 1) % 4 === 0
-                  ? "flex-row-reverse"
-                  : ""
+                  ? "md:flex-row-reverse"
+                  : "md:flex-row"
               }`}
             >
               {post.featured && (

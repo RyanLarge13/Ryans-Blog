@@ -1,6 +1,6 @@
 const Nav = (): JSX.Element => {
   return (
-    <header className="fixed top-0 right-0 left-0 bg-[#222] py-3 px-8 z-10 bg-opacity-75">
+    <header className="fixed top-0 right-0 left-0 bg-[#222] py-3 px-8 z-10 bg-opacity-75 cinzel">
       <nav className="flex justify-between items-center">
         <h2 className="text-3xl">
           <a href="/" className="hidden md:inline">
