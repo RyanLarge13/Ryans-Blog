@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h2 class="intro">Intro</h2>
+  <h2 id="intro" class="intro">Intro</h2>
   <p>Lets talk about data types in JavaScript.</p>
   <br />
   <p>We will go over two different data types in JS...</p>
@@ -21,7 +21,7 @@
     JavaScript uses to define its types
   </p>
   <hr />
-  <h2>
+  <h2 id="dynamically-typed-language">
     Dynamically Typed Language
   </h2>
   <p>
@@ -35,7 +35,7 @@
     <li>Dynamically</li>
     <li>Statically</li>
   </ul>
-  <h3>
+  <h3 id="statically-typed">
     Statically Typed
   </h3>
   <p>
@@ -81,6 +81,7 @@
       article. "int"..
     </li>
   </ol>
+  <br />
   <p>
     So, what is int? Simple, int is out static type definition. We are telling
     the compiler that our variable myNumber is of a specific type. An integer
@@ -101,7 +102,7 @@
     Why is this? We tell the compiler what type our variables value is so knows
     exactly where and how to store our variable in memory.
   </p>
-  <h3>
+  <h3 id="dynamically-typed">
     Dynamically Typed
   </h3>
   <p>
@@ -169,7 +170,7 @@
     assigned by the Javascript engine interpreter for us instead.
   </p>
   <hr />
-  <h2>
+  <h2 id="js-types">
     JavaScript Types
   </h2>
   <p>
@@ -177,7 +178,7 @@
     might handle types, let's dig into the grouping of the two major data types
     in JavaScript
   </p>
-  <h3>
+  <h3 id="primative-types">
     Primitive Types
   </h3>
   <p>let's list out out Primitive Types after a brief definition</p>
@@ -199,7 +200,7 @@
     <li>Null</li>
     <li>Symbols >= ES6</li>
   </ul>
-  <h4>Integers</h4>
+  <h4 id="integers">Integers</h4>
   <div class="code">
     <code>
       <span class="const">const</span> myNumber
@@ -217,7 +218,7 @@
     equal a number and tag the variable with that type
   </p>
   <br />
-  <h4>Floating point numbers</h4>
+  <h4 id="floating-point">Floating point numbers</h4>
   <div class="code">
     <code>
       <span class="const">const</span> myFloat
@@ -233,7 +234,7 @@
     within the numeric literal indicating it should be of a floating point number
   </p>
   <br />
-  <h4>Strings</h4>
+  <h4 id="strings">Strings</h4>
   <div class="code">
     <code>
       <span class="const">const</span> myString
@@ -249,7 +250,7 @@
     example of type inference by syntax
   </p>
   <br />
-  <h4 class="h4">Booleans</h4>
+  <h4 id="booleans" class="h4">Booleans</h4>
   <div class="code">
     <code>
       <span class="const">const</span> myNameIsRyan
@@ -273,7 +274,7 @@
     value
   </p>
   <br />
-  <h4>Undefined</h4>
+  <h4 id="undefined">Undefined</h4>
   <div class="code">
     <code>
       <span class="const">const</span> uninitializedType
@@ -294,7 +295,7 @@
     explicitly set a value, or use the key word undefined
   </p>
   <br />
-  <h4>Null</h4>
+  <h4 id="null">Null</h4>
   <div class="code">
     <code>
       <span class="const">const</span> whatIsThis
@@ -309,7 +310,7 @@
     must be explicitly set.
   </p>
   <br />
-  <h3>
+  <h3 id="object-types">
     Object Types
   </h3>
   <p>
@@ -330,18 +331,23 @@
     <li>Functions</li>
   </ul>
   <br />
-  <h3>JavaScript Objects</h3>
+  <h3 id="javascript-objects">JavaScript Objects</h3>
   <div class="code">
     <code>
-      <span class="const">const</span> whatIsThis
-      <span class="equal">= </span>
-      <span class="null">null</span>;
+      <span class="const">const</span> myNewObject
+      <span class="equal">= </span> <span class="pink">&#123;</span>
+      <br>
+      <span class="indent-1">myName: <span class="str">"Ryan"</span>,</span>
+      <br>
+      <span class="indent-1">myAge: <span class="num">24</span></span>
+      <br>
+      <span class="pink">&#125;</span>;
     </code>
     <p>.js</p>
   </div>
   <p>
     JavaScript Objects are an extremely convenient and special data type in
-    JavaScript. There are multiple types of objects that can be created in
+    JavaScript. There are multiple kinds of objects that can be created in
     JavaScript, to name a few..
   </p>
   <br />
@@ -358,16 +364,15 @@
   <p>
     Object literals are a data structure that can hold a collection of key value
     pairs. We can call these key value pairs as an objects properties. Each
-    property can be looked up by its key and a value returned for whatever value
-    you assigned to that key. See the example above.
+    property can be looked up by its key and a value is returned for whatever
+    you chose to assigned to that key. See the example above.
   </p>
   <br />
   <p>
     You can name a key whatever you please in the object as long as it follows
-    the standard variable naming conventions in JavaScript. A key in an object so
-    to speak, is like a variable name and the value is well... the value you
-    assign to your variable name. Think of it as creating multiple variables
-    inside of a block.
+    the standard variable naming conventions in JavaScript. A key in an object, is like defining a variables name and the is whatever
+    you decide to assign to that variable. Think of it as creating multiple variables
+    inside of a block that can be of any other valid JavaScript type, including other object types
   </p>
   <br />
   <p>
@@ -376,13 +381,60 @@
     virtually anything. This includes all primitive data types we went over in
     the previous section and includes all Object data types that we will cover
     more in depth in this section, such as arrays, other objects, functions or
-    return values from functions
+    return values from functions.
   </p>
   <br />
   <p>
     As you can see, JS objects are pretty cool. And if we think about it a little
-    longer we realize we can do some pretty cool things with this data structure
+    longer we realize we can do some pretty cool things with this data structure. But lets continue to keep things simple.
+    Here are some great examples and explanations on how these data structures work
+    and how a JavaScript engine will evaluate these structures
   </p>
+  <br>
+  <h4>Object Literals</h4>
+  <p>We have already briefly discussed object literals in JavaScript above, but we never discussed how they are interpreted and the true power behind them</p>
+  <div class="code">
+    <code>
+      <span class="const">const</span> person1
+      <span class="equal">= </span> <span class="pink">&#123;</span>
+      <br>
+      <span class="indent-1">name: <span class="str">"Joe"</span></span>,
+      <br>
+      <span class="indent-1">age: <span class="num">45</span></span>,
+      <br>
+      <span class="indent-1">relations: <span class="yellow">&#91;&#93;</span></span>
+      <br>
+      <span class="pink">&#125;</span>;
+      <br>
+      <br>
+      <span class="const">const</span> person2
+      <span class="equal">= </span> <span class="pink">&#123;</span>
+      <br>
+      <span class="indent-1">name: <span class="str">"Ryan"</span></span>,
+      <br>
+      <span class="indent-1">age: <span class="num">24</span></span>,
+      <br>
+      <span class="indent-1">relations: <span class="yellow">&#91;&#93;</span></span>
+      <br>
+      <span class="pink">&#125;</span>;
+    </code>
+    <p>.js</p>
+  </div>
+  <script>
+    const codes = document.querySelectorAll(".code");
+    codes.forEach((code) => code.addEventListener("click", (e) => {
+      e.preventDefault();
+      const text = code.textContent;
+      navigator.clipboard.writeText(text).then(
+        () => {
+          console.log("Copied");
+        },
+        (err) => {
+          console.error("Unable to copy text: ", err);
+        }
+      )
+    }))
+  </script>
 </body>
 
 </html>
