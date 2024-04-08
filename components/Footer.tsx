@@ -24,7 +24,7 @@ const Footer = () => {
           </a>
         </li>
         <li>
-          <a href="https://twitter.com/ryan_large13">
+          <a href="https://twitter.com/ryan_large13" className="text-blue-300">
             <GrTwitter />
           </a>
         </li>

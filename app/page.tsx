@@ -56,13 +56,16 @@ const Home = () => {
             </a>
           </div>
           <div className="my-5 flex justify-center items-center gap-x-5">
-            <a href="#">
+            <a href="https://www.facebook.com/profile.php?id=100091095757070">
               <GrFacebookOption className="text-blue-300" />
             </a>
-            <a href="#">
+            <a href="https://github.com/RyanLarge13">
               <GrGithub />
             </a>
-            <a href="#" className="text-blue-300">
+            <a
+              href="https://twitter.com/ryan_large13"
+              className="text-blue-300"
+            >
               <GrTwitter />
             </a>
           </div>

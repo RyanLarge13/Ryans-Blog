@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h2>Intro</h2>
+  <h2 class="intro">Intro</h2>
   <p>Lets talk about data types in JavaScript.</p>
   <br />
   <p>We will go over two different data types in JS...</p>
@@ -20,16 +20,16 @@
     But before we talk about these we are going to first talk about the method
     JavaScript uses to define its types
   </p>
+  <hr />
   <h2>
     Dynamically Typed Language
   </h2>
   <p>
-    Javascript is a
-    <strong> typed language. This is
-      extremely important to understand so let me make it clear with examples of
-      what I mean by a dynamically typed language and how it works. There are two
-      different ways a language can determine its types of variables, objects,
-      structs and more:
+    Javascript is a dynamically typed language. This is
+    extremely important to understand so let me make it clear with examples of
+    what I mean by a dynamically typed language and how it works. There are two
+    different ways a language can determine its types of variables, objects,
+    structs and more:
   </p>
   <ul>
     <li>Dynamically</li>
@@ -43,11 +43,11 @@
     <span>C++, C, Java, Go, Rust,</span>
     etc.. etc.... etc.......
   </p>
-  <div>
+  <div class="code">
     <code>
-      <span>int</span> myNumber
-      <span>= </span>
-      <span>24</span>;
+      <span class="const">int</span> myNumber
+      <span class="equal">= </span>
+      <span class="num">24</span>;
     </code>
     <p>.c</p>
   </div>
@@ -108,11 +108,11 @@
     Here is an example of a dynamically typed variable in a language like
     <span>JavaScript, Python, Ruby, PHP, Perl, ect. ect...</span>
   </p>
-  <div>
+  <div class="code">
     <code>
-      <span>const</span> myNumber
-      <span>= </span>
-      <span>24</span>;
+      <span class="const">const</span> myNumber
+      <span class="equal">= </span>
+      <span class="num">24</span>;
     </code>
     <p>.js</p>
   </div>
@@ -168,8 +168,9 @@
     specified within the language itself because at compile time types will be
     assigned by the Javascript engine interpreter for us instead.
   </p>
+  <hr />
   <h2>
-    Primitive Types
+    JavaScript Types
   </h2>
   <p>
     Now we have gone over some basic ideas on how JavaScript and other languages
@@ -198,12 +199,12 @@
     <li>Null</li>
     <li>Symbols >= ES6</li>
   </ul>
-  <p>Integers</p>
-  <div>
+  <h4>Integers</h4>
+  <div class="code">
     <code>
-      <span>const</span> myNumber
-      <span>= </span>
-      <span>24</span>;
+      <span class="const">const</span> myNumber
+      <span class="equal">= </span>
+      <span class="num">24</span>;
     </code>
     <p>.js</p>
   </div>
@@ -216,12 +217,12 @@
     equal a number and tag the variable with that type
   </p>
   <br />
-  <p>Floating point numbers</p>
-  <div>
+  <h4>Floating point numbers</h4>
+  <div class="code">
     <code>
-      <span>const</span> myFloat
-      <span>= </span>
-      <span>24.74356</span>;
+      <span class="const">const</span> myFloat
+      <span class="equal">= </span>
+      <span class="num">24.74356</span>;
     </code>
     <p>.js</p>
   </div>
@@ -231,12 +232,13 @@
     and if it is not a character. Additionally the engine will notice the period
     within the numeric literal indicating it should be of a floating point number
   </p>
-  <p>Strings</p>
-  <div>
+  <br />
+  <h4>Strings</h4>
+  <div class="code">
     <code>
-      <span>const</span> myString
-      <span>= </span>
-      <span>"Hey, I am a string"</span>;
+      <span class="const">const</span> myString
+      <span class="equal">= </span>
+      <span class="str">"Hey, I am a string"</span>;
     </code>
     <p>.js</p>
   </div>
@@ -246,12 +248,21 @@
     string by the double or single quotes around your value. Another great
     example of type inference by syntax
   </p>
-  <p>Boolean</p>
-  <div>
+  <br />
+  <h4 class="h4">Booleans</h4>
+  <div class="code">
     <code>
-      <span>const</span> myNameIsRyan
-      <span>= </span>
-      <span>true</span>;
+      <span class="const">const</span> myNameIsRyan
+      <span class="equal">= </span>
+      <span class="boo">true</span>;
+    </code>
+    <p>.js</p>
+  </div>
+  <div class="code">
+    <code>
+      <span class="const">const</span> myNameIsRyan
+      <span class="equal">= </span>
+      <span class="boo">false</span>;
     </code>
     <p>.js</p>
   </div>
@@ -262,12 +273,12 @@
     value
   </p>
   <br />
-  <p>Undefined</p>
-  <div>
+  <h4>Undefined</h4>
+  <div class="code">
     <code>
-      <span>const</span> uninitializedType
-      <span>= </span>
-      <span>undefined</span>;
+      <span class="const">const</span> uninitializedType
+      <span class="equal">= </span>
+      <span class="undefined">undefined</span>;
     </code>
     <p>.js</p>
   </div>
@@ -283,12 +294,12 @@
     explicitly set a value, or use the key word undefined
   </p>
   <br />
-  <p>Null</p>
-  <div>
+  <h4>Null</h4>
+  <div class="code">
     <code>
-      <span>const</span> whatIsThis
-      <span>= </span>
-      <span>null</span>;
+      <span class="const">const</span> whatIsThis
+      <span class="equal">= </span>
+      <span class="null">null</span>;
     </code>
     <p>.js</p>
   </div>
@@ -299,7 +310,7 @@
   </p>
   <br />
   <h3>
-    Primitive Types
+    Object Types
   </h3>
   <p>
     let's list out out JavaScripts Object types and explain them after a brief
@@ -319,12 +330,12 @@
     <li>Functions</li>
   </ul>
   <br />
-  <p>JavaScript Objects</p>
-  <div>
+  <h3>JavaScript Objects</h3>
+  <div class="code">
     <code>
-      <span>const</span> whatIsThis
-      <span>= </span>
-      <span>null</span>;
+      <span class="const">const</span> whatIsThis
+      <span class="equal">= </span>
+      <span class="null">null</span>;
     </code>
     <p>.js</p>
   </div>

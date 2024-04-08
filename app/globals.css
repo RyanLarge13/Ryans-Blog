@@ -17,6 +17,11 @@ body {
   font-family: "Playfair Display", "Times New Roman", Times, serif;
 }
 
+.markup .intro {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
 .markup ul {
   list-style-type: disc;
   margin: 15px 0;
@@ -30,6 +35,53 @@ body {
 
 .markup h2 {
   font-size: 2.5em;
+  margin-top: 3em;
+}
+
+.markup h3 {
+  font-size: 1.7em;
+  margin-top: 2em;
+}
+
+.markup h4 {
+  font-size: 1.25em;
+  margin-top: 2em;
+  font-weight: 600;
+}
+
+.markup hr {
+  margin-top: 7em;
+  border-top: #ccc solid;
+}
+
+.markup .code {
+  margin: 25px 0;
+  background-color: #222;
+  padding: 1em;
+  color: #fff;
+  box-shadow: 0 0.5em 1.25em 0.2em #ccc;
+}
+
+.markup .code .const {
+  color: aqua;
+}
+.markup .code .equal {
+  color: tomato;
+}
+.markup .code .num {
+  color: chartreuse;
+}
+.markup .code .boo {
+  color: blueviolet;
+}
+.markup .code .str {
+  color: gold;
+}
+.markup .code .null {
+  color: darkorange;
+}
+.markup .code .undefined {
+  color: darkorange;
 }
 
 .markup code {
