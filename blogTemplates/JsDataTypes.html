@@ -392,7 +392,6 @@
   </p>
   <br>
   <h4>Object Literals</h4>
-  <p>We have already briefly discussed object literals in JavaScript above, but we never discussed how they are interpreted and the true power behind them</p>
   <div class="code">
     <code>
       <span class="const">const</span> person1
@@ -414,12 +413,42 @@
       <br>
       <span class="indent-1">age: <span class="num">24</span></span>,
       <br>
-      <span class="indent-1">relations: <span class="yellow">&#91;&#93;</span></span>
+      <span class="indent-1">relations: <span class="yellow">&#91;</span><span class="const">person1</span><span class="yellow">&#93;</span></span>
       <br>
       <span class="pink">&#125;</span>;
     </code>
     <p>.js</p>
   </div>
+  <p>We have already briefly discussed object literals in JavaScript above, but we never discussed how they are interpreted and the true power behind them. So let us dive in.</p>
+  <br>
+  <p>As you can see in the code above we have defined two object literals. They are defined by opening and closing curly braces and
+    for each key within the object literal we place a semi-colon instead of an equal sign to assign values to each key within the object.
+  </p>
+  <br>
+  <p>Also note that each key within the object literal is of a different type. Notably the relations array. This is really neat. Not only are we
+    storing an array within an object, but the array is storing references to another object. This is powerful!
+  </p>
+  <p>Any programming language is capable of these features. But JavaScript and other high level languages have make it easy for us to create such data structures. We can easily access the first persons
+    data if within our scope we only have access to person2's data. simply by dot or bracket notation or both. eg...
+  </p>
+  <div class="code">
+    <code>
+      <span class="const">const </span>
+      <span>person1Name </span>
+      <span class="equal">= </span>
+      <span>person1.<span class="const">relations</span><span class="yellow">[</span><span class="num">0</span><span class="yellow">]</span>.<span class="const">name</span></span>;
+    </code>
+    <p>.js</p>
+  </div>
+  <p>This is amazing on so many levels. We just accessed person1's name through our person2 object. But do not take my word for this. Try it out yourself.</p>
+  <br>
+  <p>So how is this working? How does this objects references array store the entire state of person1 in it? The short answer is that it doesn't.</p>
+  <br>
+  <p>How does a JavaScript engine type and create an object? Here is a simplified high level list of the steps an engine would take to type and define an object in JS</p>
+  <br>
+  <ol>
+    <li></li>
+  </ol>
   <script>
     const codes = document.querySelectorAll(".code");
     codes.forEach((code) => code.addEventListener("click", (e) => {

@@ -87,10 +87,12 @@ body {
 .markup .code .pink {
   color: deeppink;
 }
+.markup .code .yellow {
+  color: yellow;
+}
 .markup .code .indent-1 {
   margin-left: 2em;
 }
-
 .markup code {
   margin: 15px 0;
 }
