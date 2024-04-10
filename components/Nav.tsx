@@ -22,6 +22,16 @@ const Nav = (): JSX.Element => {
                 Blog
               </a>
             </li>
+            <li>
+              <a href="/about" className="hover:text-purple-300 duration-200">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="/contact" className="hover:text-purple-300 duration-200">
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

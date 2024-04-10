@@ -1,74 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <h2 style="text-align: center; font-size: 2em; margin-bottom: 2em">
-      Intro
-    </h2>
-    <p>
-      What is going on here with all of these people hating on JS so much? This
-      is a great question and I am not here to satisfy you. Especially
-      professionally. No, I am not going to be professional at all I mean it is
-      ridiculous to hold back right now. We have a plethora of absolutely
-      unbelievably smart individuals with years of experience writing and
-      engineering programs in far more advanced languages than JS by the way,
-      and god forbid they are people that unit test...
-    </p>
-    <br />
-    <p>
-      If you are reading this right now and you find that you are comparing
-      yourself to who I am describing and especially the unit testing part...
-      Are you one of those individuals? Okay, if you are please leave.
-    </p>
-    <br />
-    <p>
-      Oh wait no you need to hear this too. So, back to what I was saying here..
-      These non unit testing, super smart individuals are coming down hard on us
-      JS fans. And it seems that if you have been paying attention to who some
-      of these shlock brains are you will know that it is true. Most of them are
-      advanced software engineers with diverse backgrounds a matter of fact.
-      This is important to note and let me tell you why this is.
-    </p>
-    <h2 style="text-align: center; font-size: 2em; margin: 2em 0">
-      JS Makes Things Easy
-    </h2>
-    <p>
-      How many JavaScript writers can mash out a function using binary search
-      right now without looking up what binary search even means?
-    </p>
-    <br />
-    <p>Haha, are you able to do this?</p>
-    <br />
-    <p>
-      If you can't.. Maybe you are not sure what binary search even is. That's
-      okay, because we don't need to understand performance on a fine grain
-      level such as this. Especially knowing we have all these really great
-      searching methods in Javascript
-    </p>
-    <br />
-      <div style="background-color: #222; color: #fff; width: max-content; padding: 10px; border-radius: 10px; margin: 1em 0.25em;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h2 class="intro">
+    Intro
+  </h2>
+  <p>
+    What is going on here with all of these people hating on JS so much? This
+    is a great question and I am not here to satisfy you. Especially
+    professionally. No, I am not going to be professional at all I mean it is
+    ridiculous to hold back right now. We have a plethora of absolutely
+    unbelievably smart individuals with years of experience writing and
+    engineering programs in far more advanced languages than JS by the way,
+    and god forbid they are people that unit test...
+  </p>
+  <br />
+  <p>
+    If you are reading this right now and you find that you are comparing
+    yourself to who I am describing and especially the unit testing part...
+    Are you one of those individuals? Okay, if you are please leave.
+  </p>
+  <br />
+  <p>
+    Oh wait no you need to hear this too. So, back to what I was saying here..
+    These non unit testing, super smart individuals are coming down hard on us
+    JS fans. And it seems that if you have been paying attention to who some
+    of these shlock brains are you will know that it is true. Most of them are
+    advanced software engineers with diverse backgrounds a matter of fact.
+    This is important to note and let me tell you why this is.
+  </p>
+  <h2 class="center">
+    JS Makes Things Easy
+  </h2>
+  <p>
+    How many JavaScript writers can mash out a function using binary search
+    right now without looking up what binary search even means?
+  </p>
+  <br />
+  <p>Haha, are you able to do this?</p>
+  <br />
+  <p>
+    If you can't.. Maybe you are not sure what binary search even is. That's
+    okay, because we don't need to understand performance on a fine grain
+    level such as this. Especially knowing we have all these really great
+    searching methods in Javascript
+  </p>
+  <br />
+  <div class="code">
     <code>
-      <ul>
-        <li>
-          <span style="color: blue">Array</span>.<span style="color: green"
-            >find()</span
-          >;
-        </li>
-        <li>
-          <span style="color: blue">Array</span>.<span style="color: green"
-            >indexOf()</span
-          >;
-        </li>
-        <li> <span style="color: blue">Array</span>.<span style="color: green"
-            >splice(<span style="color: orange;">x</span>, <span style="color: orange;">y</span>)</span
-          >;</li>
-      </ul>
+      <span class="const">Array</span>.<span class="const">find<span class="pink">()</span></span>;
+      <br>
+      <span class="const">Array</span>.<span class="const">indexOf<span class="pink">()</span></span>;
+      <br>
+      <span class="const">Array</span>.<span class="const">splice<span class="pink">(</span><span class="white">x,</span> <span class="white">y</span><span class="pink">)</span></span>;
     </code>
-    </div>
-  </body>
+  </div>
+  <script>
+    const codes = document.querySelectorAll(".code");
+    codes.forEach((code) => code.addEventListener("click", (e) => {
+      e.preventDefault();
+      const text = code.textContent;
+      navigator.clipboard.writeText(text).then(
+        () => {
+          console.log("Copied");
+        },
+        (err) => {
+          console.error("Unable to copy text: ", err);
+        }
+      )
+    }))
+  </script>
+</body>
+
 </html>
