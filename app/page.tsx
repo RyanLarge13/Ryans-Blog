@@ -44,8 +44,7 @@ const Home = () => {
           <h3 className="text-2xl mb-3">Ryan Large</h3>
           <p>
             What's up devs? If you're looking for a place to learn something
-            new, well then go somewhere else. I literally have no idea what I am
-            talking about
+            new, than have fun and dig in!
           </p>
           <div className="my-5 text-center border-b">
             <a

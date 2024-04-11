@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { PrismaClient } from "@prisma/client";
 import { GrStar } from "react-icons/gr";
 const prisma = new PrismaClient();
@@ -35,7 +36,7 @@ const page = async () => {
                 alt="header"
                 loading="lazy"
               />
-              <div className="flex flex-col justify-center items-center px-10 my-5 md:my-0">
+              <div className="w-full md:w-[50%] flex flex-col justify-center items-center px-10 my-5 md:my-0">
                 <h2 className="text-4xl text-center border-b-slate-400">
                   {post.title}
                 </h2>
@@ -47,6 +48,7 @@ const page = async () => {
           </a>
         ))}
       </section>
+      <Footer />
     </main>
   );
 };

@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Metadata } from "next";
 import { GrNotes } from "react-icons/gr";
 const prisma = new PrismaClient();
 
@@ -15,7 +16,20 @@ type Post = {
   categoryid: string | null;
 };
 
+export const metadata: Metadata = {
+  title: "",
+  description: "",
+  icons: [],
+};
+
 const page = async ({ params }: { params: { id: string } }) => {
+  const setMeta = async (post: Post) => {
+    "use server";
+    metadata.title = post.title;
+    metadata.description = post.desc;
+    metadata.icons = [post.headerImg];
+  };
+
   const getPost = async () => {
     "use server";
     const post = await prisma.blogPost.findUnique({
@@ -38,6 +52,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       };
       return defaultPost;
     }
+    await setMeta(post);
     return post;
   };
 

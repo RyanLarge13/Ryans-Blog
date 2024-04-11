@@ -11,7 +11,7 @@ const Nav = (): JSX.Element => {
           </a>
         </h2>
         <div>
-          <ul className="flex justify-center items-center gap-x-5">
+          <ul className="flex justify-center items-center gap-x-5 text-xs md:text-sm">
             <li>
               <a href="/" className="hover:text-purple-300 duration-200">
                 Home

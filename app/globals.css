@@ -93,6 +93,9 @@ body {
 .markup .code .yellow {
   color: yellow;
 }
+.markup .code .func {
+  color: aquamarine;
+}
 .markup .code .indent-1 {
   margin-left: 2em;
 }
