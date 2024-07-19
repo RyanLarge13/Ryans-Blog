@@ -1,65 +1,83 @@
 <!doctype html>
 <html lang="en">
- <head>
+
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gap Buffers</title>
- </head>
+</head>
 
- <body>
+<body>
   <h2 id="intro" class="intro">Intro</h2>
   <p>Today, let's talk about gap buffers</p>
   <br />
   <p>
-   If you have never before heard of a gap buffer than you're in the right
-   place! I knew nothing at all about them years into my programming career,
-   until one day I felt like re-inventing the wheel.
+    If you have never before heard of a gap buffer than you're in the right
+    place! I knew nothing at all about them years into my programming career,
+    until one day I felt like re-inventing the wheel.
   </p>
+  <br />
   <p>
-   This all started a few days into a new blog application I was creating for
-   one of my clients. Their demands were quite reasonable, and their main focus
-   was having a great text editing experience.
+    This all started a few days into a new blog application I was creating for
+    one of my clients. Their demands were quite reasonable, and their main focus
+    was having a great text editing experience.
   </p>
   <h2 id="">Rich Text Editor Libraries</h2>
   <p>
-   For starters I immediately went to libraries. I mean who wouldn't? My tech
-   stack was something like this...
+    For starters I immediately went to libraries. I mean who wouldn't? My tech
+    stack was something like this...
   </p>
   <ul>
-   <li>React</li>
-   <li>Sanity.io (a headless CMS)</li>
-   <li>And that's it!!....</li>
+    <li>React</li>
+    <li>Sanity.io (a headless CMS)</li>
+    <li>And that's it!!....</li>
   </ul>
   <p>
-   So immediately the search was on. I checked out React Quill, React Rich Text
-   Editor, Draft.js and countless others before settling in on a library called
-   <a href="https://www.npmjs.com/package/jodit-react"> jodit-react </a>.
+    So immediately the search was on. I checked out React Quill, React Rich Text
+    Editor, Draft.js and countless others before settling in on a library called
+    <a href="https://www.npmjs.com/package/jodit-react" style="color: #008cff"> jodit-react </a>.
   </p>
   <p>
-   This was a great experience for me. I was learning a new library specific
-   skill, and creating something cool. This library came with all of the fancy
-   bells and whistles straight out of the box. Plus or minus a few paid version
-   features.. <span>And there was the problem.</span>
+    This was a great experience for me. I was learning a new library specific
+    skill, and creating something cool. This library came with all of the fancy
+    bells and whistles straight out of the box. Plus or minus a few paid version
+    features.. <span>And there was the problem.</span>
   </p>
   <br />
-    <h3 id="">Is it worth the time?</h3>
-    <p></p>
+  <h3 id="">Is it worth the time?</h3>
+  <p>To be fair to myself, there were more problems than needing to pay money for specific library features I was looking for, but also customization such as custom handles when a button was clicked in the editor, or how the editor looked.</p>
+  <br>
+  <p>All of these things were possible. But I am now a week into this project at the time and need an entirely new set of hours that I can dedicate to learning how to customize the library further, time I simply did not have and if I did I thought, how much more time would it have taken to <span>build one on my own?</span></p>
+  <h3>What Did I Learn?</h3>
+  <p>I also considered what I learned during the experience when it was finally all said and done. There are hundreds of libraries especially in the JavaScript ecosystem and some of them are very useful and powerful tool which can save you a ton of time. But not all of them.</p>
+  <br>
+  <p>Some of them you might end up using once and never again. This was the case for me. The knowledge I took with me after learning how to integrate jodit-react into a web app was very <span>specific</span>, <span>non versatile</span> and I continued my software journey without ever using that library specific knowledge again<span></span></p>
+  <h2>My Own Text Editor</h2>
+  <p>So the journey continued and I officially decided that I needed more control over
+    what technology I am using in my web apps. If I could spend weeks at a time getting truly good at implementing a library into my apps, I can take the time to build me own and gain a great deal of understanding when it comes to the lower level logic behind a text editor.
+  </p>
+  <br>
+  <p>At first I had no idea so much went into the workings of a text editor. Regardless of the language. I researched and watch a few videos here and there showing me how to turn an HTML5 text area into a custom text editor with JavaScript. But that just circles back around to the same issue I started with. Lack of control.</p>
+  <br>
+  <p>So instead I continued to look around at a few developer posts and I started hearing about this mysterious gap buffer. I had no idea what it was as I had never heard of it before. So, I began to research the gap buffer.</p>
+  <h2>Data Structures && Algorithms</h2>
   <script>
-   const codes = document.querySelectorAll(".code");
-   codes.forEach(code =>
-    code.addEventListener("click", e => {
-     e.preventDefault();
-     const text = code.textContent;
-     navigator.clipboard.writeText(text).then(
-      () => {
-       console.log("Copied");
-      },
-      err => {
-       console.error("Unable to copy text: ", err);
-      }
-     );
-    })
-   );
+    const codes = document.querySelectorAll(".code");
+    codes.forEach(code =>
+      code.addEventListener("click", e => {
+        e.preventDefault();
+        const text = code.textContent;
+        navigator.clipboard.writeText(text).then(
+          () => {
+            console.log("Copied");
+          },
+          err => {
+            console.error("Unable to copy text: ", err);
+          }
+        );
+      })
+    );
   </script>
- </body>
+</body>
+
 </html>
