@@ -44,3 +44,9 @@ model BlogPostCategory {
   @@id([blogPostId, categoryId])
   @@index([categoryId])
 }
+
+model AdminMessages {
+  id String @id @default(uuid())
+  fromEmail String
+  message String
+}

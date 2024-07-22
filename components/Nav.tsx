@@ -1,3 +1,5 @@
+import NavToggle from "./NavToggle";
+
 const Nav = (): JSX.Element => {
   return (
     <header className="fixed top-0 right-0 left-0 bg-[#222] py-3 px-8 z-10 bg-opacity-75 cinzel">
@@ -10,7 +12,8 @@ const Nav = (): JSX.Element => {
             RB
           </a>
         </h2>
-        <div>
+        <NavToggle />
+        <div className="hidden md:block">
           <ul className="flex justify-center items-center gap-x-5 text-xs md:text-sm">
             <li>
               <a href="/" className="hover:text-purple-300 duration-200">
