@@ -13,17 +13,26 @@ const page = () => {
       email: data.get("email"),
       message: data.get("message"),
     };
-    const newMail = await prisma.adminMessages.create({
-      data: { fromEmail: rawData.email, message: rawData.message },
-    });
-    if (!newMail) {
+    if (
+      typeof rawData.email === "string" &&
+      typeof rawData.message === "string"
+    ) {
+      const newMail = await prisma.adminMessages.create({
+        data: { fromEmail: rawData.email, message: rawData.message },
+      });
+      if (!newMail) {
+        return {
+          message:
+            "We are so sorry, there seems to be a problem with our server at the moment. Please try again later",
+        };
+      }
       return {
-        message:
-          "We are so sorry, there seems to be a problem with our server at the moment. Please try again later",
+        message: "Message sent. I will get back to you soon",
       };
     }
     return {
-      message: "Message sent. I will get back to you soon",
+      message:
+        "We are so sorry, there seems to be a problem with our server at the moment. Please try again later",
     };
   };
 
