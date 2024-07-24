@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import React from "react";
 import SubmitBtn from "@/components/SubmitBtn";
-import FormMessage from "@/components/FormMessage";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -56,7 +55,6 @@ const page = () => {
           className="bg-transparent p-5 border-none outline-none focus:border-none focus:shadow-sm focus:shadow-slate-500 focus:outline-none duration-200"
         ></textarea>
         <SubmitBtn />
-        <FormMessage serverFunc={sendMessage} />
       </form>
       <Footer />
     </main>
