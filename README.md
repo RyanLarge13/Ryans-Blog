@@ -36,7 +36,7 @@ To run the project locally:
 
    ```
    git clone https://github.com/RyanLarge13/Ryans-Blog.git
-   cd ryans-blog
+   cd Ryans-Blog
    ```
 
 2. Install dependencies:
