@@ -1,83 +1,302 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gap Buffers</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gap Buffers</title>
-</head>
-
-<body>
-  <h2 id="intro" class="intro">Intro</h2>
-  <p>Today, let's talk about gap buffers</p>
-  <br />
-  <p>
-    If you have never before heard of a gap buffer than you're in the right
-    place! I knew nothing at all about them years into my programming career,
-    until one day I felt like re-inventing the wheel.
-  </p>
-  <br />
-  <p>
-    This all started a few days into a new blog application I was creating for
-    one of my clients. Their demands were quite reasonable, and their main focus
-    was having a great text editing experience.
-  </p>
-  <h2 id="">Rich Text Editor Libraries</h2>
-  <p>
-    For starters I immediately went to libraries. I mean who wouldn't? My tech
-    stack was something like this...
-  </p>
-  <ul>
-    <li>React</li>
-    <li>Sanity.io (a headless CMS)</li>
-    <li>And that's it!!....</li>
-  </ul>
-  <p>
-    So immediately the search was on. I checked out React Quill, React Rich Text
-    Editor, Draft.js and countless others before settling in on a library called
-    <a href="https://www.npmjs.com/package/jodit-react" style="color: #008cff"> jodit-react </a>.
-  </p>
-  <p>
-    This was a great experience for me. I was learning a new library specific
-    skill, and creating something cool. This library came with all of the fancy
-    bells and whistles straight out of the box. Plus or minus a few paid version
-    features.. <span>And there was the problem.</span>
-  </p>
-  <br />
-  <h3 id="">Is it worth the time?</h3>
-  <p>To be fair to myself, there were more problems than needing to pay money for specific library features I was looking for, but also customization such as custom handles when a button was clicked in the editor, or how the editor looked.</p>
-  <br>
-  <p>All of these things were possible. But I am now a week into this project at the time and need an entirely new set of hours that I can dedicate to learning how to customize the library further, time I simply did not have and if I did I thought, how much more time would it have taken to <span>build one on my own?</span></p>
-  <h3>What Did I Learn?</h3>
-  <p>I also considered what I learned during the experience when it was finally all said and done. There are hundreds of libraries especially in the JavaScript ecosystem and some of them are very useful and powerful tool which can save you a ton of time. But not all of them.</p>
-  <br>
-  <p>Some of them you might end up using once and never again. This was the case for me. The knowledge I took with me after learning how to integrate jodit-react into a web app was very <span>specific</span>, <span>non versatile</span> and I continued my software journey without ever using that library specific knowledge again<span></span></p>
-  <h2>My Own Text Editor</h2>
-  <p>So the journey continued and I officially decided that I needed more control over
-    what technology I am using in my web apps. If I could spend weeks at a time getting truly good at implementing a library into my apps, I can take the time to build me own and gain a great deal of understanding when it comes to the lower level logic behind a text editor.
-  </p>
-  <br>
-  <p>At first I had no idea so much went into the workings of a text editor. Regardless of the language. I researched and watch a few videos here and there showing me how to turn an HTML5 text area into a custom text editor with JavaScript. But that just circles back around to the same issue I started with. Lack of control.</p>
-  <br>
-  <p>So instead I continued to look around at a few developer posts and I started hearing about this mysterious gap buffer. I had no idea what it was as I had never heard of it before. So, I began to research the gap buffer.</p>
-  <h2>Data Structures && Algorithms</h2>
-  <script>
-    const codes = document.querySelectorAll(".code");
-    codes.forEach(code =>
-      code.addEventListener("click", e => {
-        e.preventDefault();
-        const text = code.textContent;
-        navigator.clipboard.writeText(text).then(
-          () => {
-            console.log("Copied");
-          },
-          err => {
-            console.error("Unable to copy text: ", err);
-          }
-        );
-      })
-    );
-  </script>
-</body>
-
+  <body>
+    <h2 id="intro" class="intro">Intro</h2>
+    <p>Today, let's talk about gap buffers</p>
+    <br />
+    <p>
+      If you have never before heard of a gap buffer than you're in the right
+      place! I knew nothing at all about them years into my programming career,
+      until one day I felt like re-inventing the wheel.
+    </p>
+    <br />
+    <p>
+      This all started a few days into a new blog application I was creating for
+      one of my clients. Their demands were quite reasonable, and their main
+      focus was having a great text editing experience.
+    </p>
+    <h2 id="">Rich Text Editor Libraries</h2>
+    <p>
+      For starters I immediately went to libraries. I mean who wouldn't? My tech
+      stack was something like this...
+    </p>
+    <ul>
+      <li>React</li>
+      <li>Sanity.io (a headless CMS)</li>
+      <li>And that's it!!....</li>
+    </ul>
+    <p>
+      So immediately the search was on. I checked out React Quill, React Rich
+      Text Editor, Draft.js and countless others before settling in on a library
+      called
+      <a
+        href="https://www.npmjs.com/package/jodit-react"
+        style="color: #008cff"
+      >
+        jodit-react </a
+      >.
+    </p>
+    <p>
+      This was a great experience for me. I was learning a new library specific
+      skill, and creating something cool. This library came with all of the
+      fancy bells and whistles straight out of the box. Plus or minus a few paid
+      version features.. <span>And there was the problem.</span>
+    </p>
+    <br />
+    <h3 id="">Is it worth the time?</h3>
+    <p
+      >To be fair to myself, there were more problems than needing to pay money
+      for specific library features I was looking for, but also customization
+      such as custom handles when a button was clicked in the editor, or how the
+      editor looked.</p
+    >
+    <br />
+    <p
+      >All of these things were possible. But I am now a week into this project
+      at the time and need an entirely new set of hours that I can dedicate to
+      learning how to customize the library further, time I simply did not have
+      and if I did I thought, how much more time would it have taken to
+      <span>build one on my own?</span></p
+    >
+    <h3>What Did I Learn?</h3>
+    <p
+      >I also considered what I learned during the experience when it was
+      finally all said and done. There are hundreds of libraries especially in
+      the JavaScript ecosystem and some of them are very useful and powerful
+      tool which can save you a ton of time. But not all of them.</p
+    >
+    <br />
+    <p
+      >Some of them you might end up using once and never again. This was the
+      case for me. The knowledge I took with me after learning how to integrate
+      jodit-react into a web app was very <span>specific</span>,
+      <span>non versatile</span> and I continued my software journey without
+      ever using that library specific knowledge again<span></span
+    ></p>
+    <h2>My Own Text Editor</h2>
+    <p
+      >So the journey continued and I officially decided that I needed more
+      control over what technology I am using in my web apps. If I could spend
+      weeks at a time getting truly good at implementing a library into my apps,
+      I can take the time to build me own and gain a great deal of understanding
+      when it comes to the lower level logic behind a text editor.
+    </p>
+    <br />
+    <p
+      >At first I had no idea so much went into the workings of a text editor.
+      Regardless of the language. I researched and watch a few videos here and
+      there showing me how to turn an HTML5 text area into a custom text editor
+      with JavaScript. But that just circles back around to the same issue I
+      started with. Lack of control.</p
+    >
+    <br />
+    <p
+      >So instead I continued to look around at a few developer posts and I
+      started hearing about this mysterious gap buffer. I had no idea what it
+      was as I had never heard of it before. So, I began to research the gap
+      buffer.</p
+    >
+    <h2>Data Structures && Algorithms</h2>
+    <br />
+    <p>
+      What the heck is a Gap Buffer!? I asked myself. Well, turns out it is like
+      any other kind of object in coding. We use the tools we have to create a
+      little machine or a small enclosed system dedicated to a specific task.
+      Like a mini program or structure. A gap buffer I came to find out was
+      exactly that. It was a collection of methods that worked in a specific way
+      to manipulate a certain kind of data. It was not without a ton of reading
+      and searching before I could really have a good idea of how the inner
+      workings of this data structure worked together to become living program
+      that reacted to events. No good You Tube videos out there or papers on the
+      subject really explaining how it worked, but with a ton of hopping back
+      and forth and patience I was able to figure out how to put it all together
+      and realized how it could fit into the heart of a larger program such as a
+      text editor.
+    </p>
+    <br />
+    <p
+      >You see one of the draw backs of computers is that naturally they like to
+      do as much work as possible. It is easy for them to do too much work. I
+      mean they don't have the skills of taking a step back to view the larger
+      picture all at once and use deductive reasoning to reach an answer
+      swiftly. No computers can only see one thing at a time. If you want to
+      find the largest number in a list you need to look at every single number
+      in that list! No matter what. One by one it needs to be compared with the
+      current largest number to see if it beats it. Well, see with that in mind
+      while considering the fact that we intend to build ourselves a text
+      editor, we seem to have ran into a little problem. I mean luckily
+      computers are fast as heck. But when you truly start to understand how
+      much work they are doing for simple tasks you consider the fact that maybe
+      reprinting two hunderd and fourty eight thousand nine hundered a thirty
+      four letters to the screen each and every time a letter is typed might
+      become a bit taxing for it if not done in a more efficient way.</p
+    >
+    <br />
+    <p
+      >But that is not all and not painting the best picture. Let's step back
+      and consider what it might take to build a text editor. Now there is
+      certainly more than one way to handle editing, saving and printing large
+      amounts of text, but we are sticking with a specific way. . .</p
+    >
+    <br />
+    <p>A list</p>
+    <br />
+    <p
+      >I hope if you are reading about Gap Buffers you know how we can reprisent
+      lists in programming. Such as with an array. That is what I would like to
+      use for this text editor, because as we all know with a text editor we
+      need to be able to create, read, update, and delete text. So we need a way
+      to store our text in memory and maybe in groups or as a long text string,
+      which is just an array or text under the hood right? So let's go with
+      that. An array. We will store our text in an array that will hold our
+      characters at each index. Then we can loop over that array to print our
+      text and we can remove characters from the array when we delete them, and
+      we can append characters when we type them to the array or even prepend
+      characters when we need to edit. Arrays are very easy to work with and
+      computers are fast. But what about when our array is 500,000 characters
+      long and we needed to add a letter to the first word of our paper? What
+      will happen? Does anyone know what the computer will need to do?</p
+    >
+    <br />
+    <p
+      >Did you come up with a few answers? Well, here is what I noticed. I
+      noticed that in order for us to add a character to the begining of the
+      array we would neeed to literally move all 500,000 letters after it
+      forward one spot in memory. Wholey freaking cow. You mean we would
+      literally need to move every single letter after the index we are editing
+      to the next index of the array one by one? Yes that is what I am saying.
+      Why can we not just move the characters on the left over instead? Well,
+      that sounds like a very intellegent solution accept, the fundamentals or
+      every programming language and how they work with the very bare bones of
+      our memeory system do not allow for that. We cannot then index into our
+      first element with. . .</p
+    >
+    <br />
+    <div class="code">
+      <code>
+        <span class="const">array</span>
+        <span class="equal">[</span>
+        <span class="num">-1</span>
+        <span class="equal">]</span>;
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >It does not work, and neither does -2 or -3 and so on. So we are
+      literally foreced to phisycally move each character in memory over that is
+      to the right of us. That is un-believable! And so much work! Each 8 bit
+      memory slot will be wiped clean just to be replaced by the 8 bits to the
+      left and god forbid the allocated space did not end right were a currently
+      used up chunck of memory is. That means our computer will have no choice
+      but to find a new spot to allocate our array to in memory that does have a
+      long enough stretch of contiguous space that we can fit our new array and
+      oh my gosh that means we need to copy the old one with our new update and
+      paste it into new memory slot and then delete the old one so that memory
+      can be freed up again!</p
+    >
+    <br />
+    <p
+      >Now we are getting into some serious computational weight and we can
+      notice it because of the lag we experience as we edit. I mean come on, we
+      are writting novels with our text editor right? How can we make something
+      useful when we advertise that our program can only handle a few pages
+      without beginning to lag and cause frustration!?</p
+    >
+    <br />
+    <p
+      >That is when we decide that an array is still a great option, but maybe
+      we can turn it into a super array or an array of super arrays that have
+      some special properties so our performance issues significantly decrease
+      or maybe even dissapear completely.</p
+    >
+    <h2>Gap Buffer</h2>
+    <br />
+    <p
+      >Now, Gap Buffers will solve this exact problem for us while also allowing
+      for an easy way to implement some other fancy things into our program as
+      well but in a more convenient and safe way than otherwise. But, we will
+      cover more on that later. For now, let us discuss what a Gap Buffer
+      actually looks like and then we can dive into how it solves our
+      performance problem.</p
+    >
+    <br />
+    <h3>What Is A Gap Buffer?</h3>
+    <br />
+    <p
+      >Before I paste the crappy code I created from scratch as my own first Gap
+      Buffer implementation I will give you a quick overview. The issue with a
+      single array holding all of our information is that quickly we have
+      problems with memory allocation involving relatively large amounts of data
+      and very often. This causes lagging and bad performance. So we consider
+      this problem and use the Gap Buffer to mitigate it mainly by its power to
+      manage a large list of characters as a whole even when split up into
+      multiple lists and allocated into different parts of memory so now any
+      given part of our text being edited is only one of many pieces of the
+      whole puzzle significantly reduced in size so taxing operations are done
+      only on a small portion of the string rather than the whole 500,000
+      characters in the worst case. Let's visualize with code.</p
+    >
+    <br />
+    <div class="code">
+      <code>
+        <span class="const">text </span>
+        <span class="equal">= [</span><span class="str">"R"</span>,
+        <span class="str"> "y"</span>, <span class="str"> "a"</span>,
+        <span class="str"> "n"</span><span class="equal">]</span>;
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >Above is our array of character which will be printed as "Ryan" in our
+      editor. Let's add "Hello,"" to the beggining so our text editor would then
+      print out "Hello, Ryan" instead. Of course using code that is quite simple
+      and we have many ways of doing it. Let us keep it simple.
+    </p>
+    <br />
+    <div class="code">
+      <code>
+        <span class="const">const </span> addition
+        <span class="equal">= </span> <span class="str">"Hello,"</span>;
+        <br />
+        <span class="pink">for </span>(<span class="const">let </span>i
+        <span class="equal">= </span><span class="num">0</span>; i
+        <span class="equal">&lt;</span> addition.<span class="func">length</span
+        >; i<span class="pink">++</span>) <span class="pink">&#123;</span>
+        <br />
+        &nbsp;&nbsp;text.<span class="func">shift</span>(addition<span
+          class="equal"
+          >[</span
+        ><span class="num">i</span><span class="equal">]</span>);
+        <span class="pink">&#125;</span>
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p></p>
+    <script>
+      const codes = document.querySelectorAll(".code");
+      codes.forEach((code) =>
+        code.addEventListener("click", (e) => {
+          e.preventDefault();
+          const text = code.textContent;
+          navigator.clipboard.writeText(text).then(
+            () => {
+              console.log("Copied");
+            },
+            (err) => {
+              console.error("Unable to copy text: ", err);
+            }
+          );
+        })
+      );
+    </script>
+  </body>
 </html>
