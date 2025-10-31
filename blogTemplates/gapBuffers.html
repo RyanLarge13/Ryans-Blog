@@ -717,20 +717,168 @@
     <br />
     <h3>Gap Buffer Class Constructor</h3>
     <br />
-    <p>Inside of this class constructor at the top of the class we have a few variables mostly for keeping track of certain information and quick access to data that pertains to our string array. This data includes the array we will be keeping our characters in. Observe that we initialize it to have 10 8-bit memory slots preserved to us for this array which will virtually garuntee us the space required to fill it with 10 characters and have no need to reallocate memory from attempting to occupy an already occupied piece of memeory</p>
-    <br>
+    <p
+      >Inside of this class constructor at the top of the class we have a few
+      variables mostly for keeping track of certain information and quick access
+      to data that pertains to our string array. This data includes the array we
+      will be keeping our characters in. Observe that we initialize it to have
+      10 8-bit memory slots preserved to us for this array which will virtually
+      garuntee us the space required to fill it with 10 characters and have no
+      need to reallocate memory from attempting to occupy an already occupied
+      piece of memeory</p
+    >
+    <br />
     <div class="code">
       <code>
-        <span class="const">this</span>.buffer
-        <span class="equal">= </span><span class="const">new </span>Array(<span
-          class="num"
-          >10</span
-        >).<span class="func">fill</span>(<span class="str">" "</span>);
+        <span class="const">this</span>.buffer <span class="equal">= </span
+        ><span class="const">new </span>Array(<span class="num">10</span>).<span
+          class="func"
+          >fill</span
+        >(<span class="str">" "</span>);
       </code>
-       <p>.js</p>
+      <p>.js</p>
     </div>
-    <br>
-    <p></p>
+    <br />
+    <p>Underneither this line of code we have a few more variables.</p>
+    <br />
+    <div class="code">
+      <code>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapStart
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.indexState
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapEnd
+        <span class="equal">= </span><span class="num">10</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.newLines
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.currentLineCount
+        <span class="equal">= </span><span class="num">0</span>;<br />
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >Let us quickly review these as they are important for tracking
+      information about how, where and how much of the array we are editing..
+      eg. creating, updating, deleting characters within the array.</p
+    >
+    <br />
+    <h4>gapStart</h4>
+    <br />
+    <p
+      >gapStart tells us where in the array our cursor is currently at, where
+      our users updates will take place at</p
+    >
+    <br />
+    <h4>indexState</h4>
+    <br />
+    <p
+      >indexState is similar to gapStart by storing the information of where our
+      cursor currently is within the string array of characters in our buffer.
+      But we give it another name so we can use it for clarifying purposes
+      within our implementation</p
+    >
+    <br />
+    <h4>gapEnd</h4>
+    <br />
+    <p>gapEnd tells us the length of the gap buffer array we created</p>
+    <br />
+    <h4>newLines</h4>
+    <br />
+    <p
+      >newLines variable is there to help us keep track of new line characters
+      within out buffer for ease of use when rendering the buffer.
+      <i>not relavent</i></p
+    >
+    <br />
+    <h4>currentLineCount</h4>
+    <br />
+    <p
+      >Another variable that is not relavent in this article for rendering
+      purposes in my text editor code.</p
+    >
+    <br />
+    <p
+      >So we understand now that the important information we need to have for a
+      gap buffer implementation is an array with a specified amount of space
+      allocated in memory. Where our cursor is, and how long the array is. I
+      would say so far that is pretty simple. This is all the information that
+      is needed for us to create some amazing methods for manipulating the
+      character array depending on what action the user takes!</p
+    >
+    <br />
+    <h3>Move Gap</h3>
+    <br />
+    <div class="code">
+      <code>
+        &nbsp;&nbsp;<span class="func">moveGap</span>(index)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (index
+        <span class="equal">&lt;</span>
+        <span class="const">this</span>.gapStart)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span
+        >offset <span class="equal">= </span
+        ><span class="const">this</span>.gapStart
+        <span class="equal">-</span> index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.buffer.<span class="func">splice</span>(<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num"
+          >0</span
+        >,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<span class="const"
+          >this</span
+        >.buffer.<span class="func">splice</span>(<span class="const">this</span
+        >.gapStart, <span class="const">this</span>.gapEnd
+        <span class="equal">-</span>
+        <span class="const">this</span>.gapStart)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapStart <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapEnd <span class="equal">-= </span>offset;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span>
+        <span class="pink">else if</span> (index
+        <span class="equal">&gt;</span>
+        <span class="const">this</span>.gapStart)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span
+        >offset <span class="equal">= </span>index <span class="equal">-</span>
+        <span class="const">this</span>.gapStart;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.buffer.<span class="func">splice</span>(<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num"
+          >0</span
+        >,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<span class="const"
+          >this</span
+        >.buffer.<span class="func">splice</span>(<span class="const">this</span
+        >.gapStart, <span class="const">this</span>.gapEnd
+        <span class="equal">-</span>
+        <span class="const">this</span>.gapStart)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapStart <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapEnd <span class="equal">+= </span>offset;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >Here is one of the most important methods of the gap buffer. This method
+      allows us to move around an imaginary cursor in our array of character the
+      "gap" and if we were to make some kind of edit, where in our array of
+      characters this update would take place.</p
+    >
     <script>
       const codes = document.querySelectorAll(".code");
       codes.forEach((code) =>
