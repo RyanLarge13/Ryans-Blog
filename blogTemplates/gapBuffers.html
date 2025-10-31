@@ -261,7 +261,7 @@
       and we have many ways of doing it. Let us keep it simple.
     </p>
     <br />
-    <div class="code">
+    <div class="code" id="example-code">
       <code>
         <span class="const">const </span> addition
         <span class="equal">= </span> <span class="str">"Hello,"</span>;
@@ -280,6 +280,456 @@
       <p>.js</p>
     </div>
     <br />
+    <p
+      >In this example code we are manually inserting the characters that make
+      up "Hello, " one by one as we would if we were to simply type this string
+      into a program such as a text editor. The value of viewing this small
+      snippet is simply to show us that using arrays is easy and with that we
+      can quickly create ineffecient programs. What we do not see in this code
+      unless you have spent time in a deeper level of programing is that behind
+      the scense we are moving each and every character in memeory to a new
+      location, basically copying and pasting the data making up the current
+      string at each iteration and deleting old data.</p
+    >
+    <br />
+    <p
+      >We must remember that this is simply how computers do things. They take
+      certain steps a certain size and a certain way every single time to create
+      a very logical, reliable and consistent computation. It is our job as
+      programmers to make sure that the process is carried out responsibly and
+      is managed in a way that we can keep our computational work load managable
+      for the computer even if it can in fact process billions of tasks a
+      second, it would suprise you how quickly that adds up.</p
+    >
+    <br />
+    <p
+      >So our job in the task of building a text editor is not so much how to
+      change the fundamentals of computation and how our operating system
+      allocates memory, but instead to understand how it allocates memory and
+      know our limitations. So now we know its not the computer or memory
+      allocation logic that is the problem it is that when our string becomes
+      production size or extraordinarily long we will have massive slow downs
+      when making edits such as in the
+      <a href="#example-code">above code</a> because of the way our operating
+      system needs to manage memory. So the solution for our issue here is to
+      split up the string into managable sizes so any given edit only manages a
+      string that the computer is built to handle in a reasonable time.</p
+    >
+    <br />
+    <h3>Implementation</h3>
+    <br />
+    <p
+      >Now, I am going to paste in some crappy code. This code is my own
+      implementation of a Gap Buffer. And below I will go into details about how
+      each method fits together as a whole to make what we call the Gap Buffer
+      data structrue.</p
+    >
+    <br />
+    <div class="code" id="buffer-code">
+      <code>
+        <span class="const">class </span>Buffer <span class="pink">&#123;</span
+        ><br />
+        &nbsp;&nbsp;<span class="func">constructor</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.buffer
+        <span class="equal">= </span><span class="const">new </span>Array(<span
+          class="num"
+          >10</span
+        >).<span class="func">fill</span>(<span class="str">" "</span>);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapStart
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.indexState
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapEnd
+        <span class="equal">= </span><span class="num">10</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.newLines
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.currentLineCount
+        <span class="equal">= </span><span class="num">0</span>;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">moveGap</span>(index)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (index
+        <span class="equal">&lt;</span>
+        <span class="const">this</span>.gapStart)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span
+        >offset <span class="equal">= </span
+        ><span class="const">this</span>.gapStart
+        <span class="equal">-</span> index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.buffer.<span class="func">splice</span>(<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num"
+          >0</span
+        >,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<span class="const"
+          >this</span
+        >.buffer.<span class="func">splice</span>(<span class="const">this</span
+        >.gapStart, <span class="const">this</span>.gapEnd
+        <span class="equal">-</span>
+        <span class="const">this</span>.gapStart)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapStart <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapEnd <span class="equal">-= </span>offset;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span>
+        <span class="pink">else if</span> (index
+        <span class="equal">&gt;</span>
+        <span class="const">this</span>.gapStart)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span
+        >offset <span class="equal">= </span>index <span class="equal">-</span>
+        <span class="const">this</span>.gapStart;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.buffer.<span class="func">splice</span>(<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num"
+          >0</span
+        >,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<span class="const"
+          >this</span
+        >.buffer.<span class="func">splice</span>(<span class="const">this</span
+        >.gapStart, <span class="const">this</span>.gapEnd
+        <span class="equal">-</span>
+        <span class="const">this</span>.gapStart)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapStart <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapEnd <span class="equal">+= </span>offset;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">= </span>index;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">expandBuffer</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span>addSize
+        <span class="equal">= </span><span class="num">10</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span>newBuffer
+        <span class="equal">= </span
+        ><span class="const">new </span>Array(addSize).<span class="func"
+          >fill</span
+        >(<span class="str">" "</span>);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.buffer.<span
+          class="func"
+          >splice</span
+        >(<span class="const">this</span>.gapEnd, <span class="num">0</span>,
+        ...newBuffer);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapEnd
+        <span class="equal">+= </span>addSize;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">insert</span>(c, index)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (index
+        <span class="equal">&lt;</span> <span class="num">0</span>
+        <span class="pink">||</span> index <span class="equal">&gt;</span>
+        <span class="const">this</span>.buffer.<span class="func">length</span>)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (<span
+          class="const"
+          >this</span
+        >.gapStart <span class="pink">!==</span>
+        <span class="const">this</span>.gapEnd) <span class="pink">&#123;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.<span class="func">moveGap</span>(index);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (<span
+          class="const"
+          >this</span
+        >.gapStart <span class="equal">===</span>
+        <span class="const">this</span>.gapEnd) <span class="pink">&#123;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.<span class="func">expandBuffer</span>();<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (c
+        <span class="equal">===</span> <span class="str">"\n"</span>)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.currentLineCount <span class="equal">= </span
+        ><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.newLines <span class="equal">+= </span
+        ><span class="num">1</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span>
+        <span class="pink">else</span> <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.currentLineCount <span class="equal">+= </span
+        ><span class="num">1</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.buffer[<span
+          class="const"
+          >this</span
+        >.gapStart] <span class="equal">= </span>c;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.gapStart++;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState++;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">erase</span>(index)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (index
+        <span class="equal">&lt;=</span> <span class="num">0</span>
+        <span class="pink">||</span> index <span class="equal">&gt;</span>
+        <span class="const">this</span>.gapEnd) <span class="pink">&#123;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (<span
+          class="const"
+          >this</span
+        >.gapStart <span class="pink">!=</span>
+        <span class="const">this</span>.gapEnd) <span class="pink">&#123;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.<span class="func">moveGap</span>(index);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">const </span>c
+        <span class="equal">= </span
+        ><span class="const">this</span>.buffer[<span class="const">this</span
+        >.gapStart <span class="equal">-</span>
+        <span class="num">1</span>];<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (c
+        <span class="equal">===</span> <span class="str">"\n"</span>)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.newLines <span class="equal">-= </span
+        ><span class="num">1</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">let </span
+        >currentLineLength <span class="equal">= </span
+        ><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">for</span> (<span
+          class="const"
+          >let </span
+        >i <span class="equal">= </span
+        ><span class="const">this</span>.indexState; i
+        <span class="equal">&gt;</span> <span class="num">0</span>; i<span
+          class="pink"
+          >--</span
+        >) <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentLineLength++;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink"
+          >if</span
+        >
+        (<span class="const">this</span>.buffer[i]
+        <span class="equal">===</span> <span class="str">"\n"</span>)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+          class="pink"
+          >break</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink"
+          >&#125;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span
+        ><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.currentLineCount <span class="equal">= </span>currentLineLength;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span>
+        <span class="pink">else</span> <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.currentLineCount <span class="equal">-= </span
+        ><span class="num">1</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.buffer[<span
+          class="const"
+          >this</span
+        >.gapStart <span class="equal">-</span> <span class="num">1</span>]
+        <span class="equal">= </span><span class="str">" "</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.gapStart<span
+          class="pink"
+          >--</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.indexState<span
+          class="pink"
+          >--</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="num">1</span>;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">print</span>(withCursor)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">let </span>beforeGap
+        <span class="equal">= </span
+        ><span class="const">this</span>.buffer.<span class="func">slice</span
+        >(<span class="num">0</span>,
+        <span class="const">this</span>.gapStart).<span class="func">join</span
+        >(<span class="str">""</span>);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">let </span>afterGap
+        <span class="equal">= </span
+        ><span class="const">this</span>.buffer.<span class="func">slice</span
+        >(<span class="const">this</span>.gapEnd).<span class="func">join</span
+        >(<span class="str">""</span>);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (withCursor)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beforeGap
+        <span class="equal">+= </span
+        ><span class="str">`&lt;span class="cursor"&gt;|&lt;/span&gt;`</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return</span> beforeGap
+        <span class="equal">+</span> afterGap;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">printRaw</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="const">this</span>.buffer;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">printSelection</span>(start, end)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;console.<span class="func">log</span>(<span
+          class="const"
+          >this</span
+        >.buffer.<span class="func">slice</span>(start, end));<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">getCurrentPos</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="const">this</span>.indexState;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">getGapEnd</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="const">this</span>.gapEnd;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">movePosBack</span>(amount)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (<span
+          class="const"
+          >this</span
+        >.indexState <span class="equal">-</span> <span class="num">1</span>
+        <span class="equal">&lt;</span> <span class="num">0</span>)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">= </span
+        ><span class="num">0</span>;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.<span
+          class="func"
+          >moveGap</span
+        >(<span class="const">this</span>.<span class="func">getCurrentPos</span
+        >() <span class="equal">-</span> amount);<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">movePosForward</span>(amount)
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">if</span> (<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.indexState <span class="equal">+</span> amount
+        <span class="equal">&gt;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span
+        >.buffer.<span class="func">length</span>
+        <span class="equal">-</span> (<span class="const">this</span>.gapEnd
+        <span class="equal">-</span>
+        <span class="const">this</span>.gapStart)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;) <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return</span
+        >;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="const">this</span>.<span
+          class="func"
+          >moveGap</span
+        >(<span class="const">this</span>.<span class="func">getCurrentPos</span
+        >() <span class="equal">+</span> amount);<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br /><br />
+
+        &nbsp;&nbsp;<span class="func">getSize</span>()
+        <span class="pink">&#123;</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="pink">return </span
+        ><span class="const">this</span>.buffer.<span class="func">length</span
+        >;<br />
+        &nbsp;&nbsp;<span class="pink">&#125;</span><br />
+        <span class="pink">&#125;</span><br /><br />
+
+        <span class="const">export default </span>Buffer;
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >First thing is first, especially if you are not the most patient or advid
+      code reader on the Earth, do not let this long piece of code scare you off
+      from Gap Buffers. Let us break it down from top to bottom, method by
+      method and wrap it all up with the big picture or in other words, the Gap
+      Buffer class.</p
+    >
+    <br />
+    <p
+      >That large block of code up there is a class. A JavaScript class to be
+      exact. This class acts as a reusable container. And if you are familiar
+      with code we can use this container of code and access all of the methods
+      in it by creating a new Gap Buffer container like so.</p
+    >
+    <br />
+    <div class="code">
+      <code>
+        <span class="const">gapBufferOne </span><span class="equal">= </span
+        ><span class="pink">new </span>GapBuffer;
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >That was easy, I must say. Now what is gapBufferOne? We set it to a new
+      instance of our Gap Buffer class. This means that we litterally have
+      managed to take all of that Gap Buffer code above and put it inside of our
+      gapBufferOne variable. Heck let's do it again. . .</p
+    >
+    <br />
+    <div class="code">
+      <code>
+        <span class="const">gapBufferOne </span><span class="equal">= </span
+        ><span class="pink">new </span>GapBuffer;<br />
+        <span class="const">gapBufferTwo </span><span class="equal">= </span
+        ><span class="pink">new </span>GapBuffer;
+      </code>
+      <p>.js</p>
+    </div>
+    <br />
+    <p
+      >Now we have two sets of that long code snippet above stored in two
+      different variables!! This is cool. It's almost like we built a mini
+      program and packaged it into those two names, "gapBufferOne" and another
+      copy of the program into "gapBufferTwo". Like two chrom browser instances
+      open at the same time! Are you picking up what I am putting down here?</p
+    >
+    <br />
+    <h3>Gap Buffer Class Constructor</h3>
+    <br />
+    <p>Inside of this class constructor at the top of the class we have a few variables mostly for keeping track of certain information and quick access to data that pertains to our string array. This data includes the array we will be keeping our characters in. Observe that we initialize it to have 10 8-bit memory slots preserved to us for this array which will virtually garuntee us the space required to fill it with 10 characters and have no need to reallocate memory from attempting to occupy an already occupied piece of memeory</p>
+    <br>
+    <div class="code">
+      <code>
+        <span class="const">this</span>.buffer
+        <span class="equal">= </span><span class="const">new </span>Array(<span
+          class="num"
+          >10</span
+        >).<span class="func">fill</span>(<span class="str">" "</span>);
+      </code>
+       <p>.js</p>
+    </div>
+    <br>
     <p></p>
     <script>
       const codes = document.querySelectorAll(".code");
