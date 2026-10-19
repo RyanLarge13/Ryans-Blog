@@ -5,8 +5,8 @@ import { SiGithub } from "react-icons/si";
 const navigation = [
   { label: "Home", href: "/" },
   { label: "Journal", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Projects", href: "https://ryanlarge13.github.io/Projects" },
+  { label: "Contact", href: "mailto:ryanlarge@ryanlarge.dev" },
 ];
 
 const Footer = () => {
@@ -94,7 +94,7 @@ const Footer = () => {
               </a>
 
               <Link
-                href="/contact"
+                href="mailto:ryanlarge@ryanlarge.dev"
                 aria-label="Contact"
                 className="flex justify-center items-center border border-neutral-200 hover:border-neutral-900 rounded-full w-10 h-10 transition-all hover:-translate-y-1 duration-300"
               >
