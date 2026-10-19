@@ -35,11 +35,10 @@
         </p>
       </header>
       <div class="placeholder">
-        <div>
-          <strong>[HERO VIDEO OR SCREENSHOT]</strong>Show the simulation running
-          with many colored particles. Suggested: a short muted looping video,
-          with a still-image fallback.
-        </div>
+        <img
+          src="https://vercel.com/ryan-larges-projects/ryans-blog/FrKQbrVgPWDJsHz4tGGSNu47CbJg/blogTemplates/PhysicsSymInsight/Physics-Sym-Spacial-Partitioning.png"
+          alt="Hero"
+        />
       </div>
       <h2>The experiment</h2>
       <p>
@@ -57,8 +56,9 @@
         and eventually settling is an entirely different one.
       </p>
       <div class="editor">
-        [AUTHOR NOTE] Add your original motivation here: what inspired the
-        experiment, and what did you hope to learn?
+        It was after watching Coding Adventures on you tube I realized I could
+        reenact real life physics on the computer. This opened up a very
+        powerful urge to test this out with a bunch of bouncy balls!
       </div>
       <h2>From the first bounce to an interactive system</h2>
       <p>
@@ -76,9 +76,10 @@
       </p>
       <div class="placeholder">
         <div>
-          <strong>[BEFORE / AFTER IMAGE PAIR]</strong>Left: earliest simulation
-          screenshot. Right: later dense-particle version. Add a one-sentence
-          caption about the visible differences.
+          <img
+            src="https://vercel.com/ryan-larges-projects/ryans-blog/FrKQbrVgPWDJsHz4tGGSNu47CbJg/blogTemplates/PhysicsSymInsight/Physics-Simulations-Side-by-Side.png"
+            alt="Comparison of Spacial Partitioning vs Not"
+          />
         </div>
       </div>
       <h2>When collision detection becomes the bottleneck</h2>
@@ -107,8 +108,9 @@
       <pre
         class="code"
       ><span class="const">const</span> gridX <span class="equal">=</span> Math.round(ball.x / gridWidth);
-<span class="const">const</span> gridY <span class="equal">=</span> Math.round(ball.y / gridHeight);
-<span class="const">const</span> key <span class="equal">=</span> <span class="str">`${gridX},${gridY}`</span>;
+      <br/> 
+<span class="const">const</span> gridY <span class="equal">=</span> Math.round(ball.y / gridHeight); <br />
+<span class="const">const</span> key <span class="equal">=</span> <span class="str">`${gridX},${gridY}`</span>; <br/>
 
 <span class="const">if</span> (!grid.has(key)) grid.set(key, []);
 grid.get(key).push(ball);</pre>
@@ -163,9 +165,9 @@ grid.get(key).push(ball);</pre>
       </p>
       <pre
         class="code"
-      ><span class="const">const</span> overlap <span class="equal">=</span> minDistance - distance;
-<span class="const">const</span> correctionFactor <span class="equal">=</span> <span class="num">0.5</span>;
-<span class="const">const</span> correctionX <span class="equal">=</span> overlap * normalX * correctionFactor;
+      ><span class="const">const</span> overlap <span class="equal">=</span> minDistance - distance;<br />
+<span class="const">const</span> correctionFactor <span class="equal">=</span> <span class="num">0.5</span>; <br />
+<span class="const">const</span> correctionX <span class="equal">=</span> overlap * normalX * correctionFactor; <br />
 <span class="const">const</span> correctionY <span class="equal">=</span> overlap * normalY * correctionFactor;</pre>
       <p class="source">
         Excerpt from
@@ -175,9 +177,10 @@ grid.get(key).push(ball);</pre>
       </p>
       <div class="placeholder">
         <div>
-          <strong>[VIDEO: THE UNEXPECTED BEHAVIOR]</strong>Show jitter, particle
-          overlap, or chaotic movement under pressure, if you have a recording.
-          A real bug is more instructive than a flawless demo.
+          <video
+            src="https://vercel.com/ryan-larges-projects/ryans-blog/FrKQbrVgPWDJsHz4tGGSNu47CbJg/blogTemplates/PhysicsSymInsight/Spatial-Partitioning-Video.mp4"
+          ></video>
+          <strong>Behold the Jitter and Strange Floating Effects</strong>
         </div>
       </div>
       <h2>Exploring parallelism—and its limits</h2>
@@ -185,7 +188,7 @@ grid.get(key).push(ball);</pre>
         On June 19, the commit history turns to Web Workers. One message
         speculates that poor performance could be responsible for balls melding
         together at higher particle counts and proposes moving work into
-        threads. Other commits refer to initializing workers alongside
+        threads. Other commits refer to initializing workers alongsi de
         experiments with velocity-based coloring.
       </p>
       <p>
@@ -202,9 +205,10 @@ grid.get(key).push(ball);</pre>
         Adding threads isn't a substitute for fixing the underlying algorithm.
       </p>
       <div class="editor">
-        [AUTHOR NOTE] What happened during the worker experiment? Did you
-        abandon it because of complexity, lack of improvement, or something
-        else? Your firsthand explanation would make this section stronger.
+        I felt as though after rendering a successful simulation with a spacial
+        partitioning algorith that worked, I did not need to continue on down a
+        more optimal path in this project. Maybe in a future project to come I
+        could advance to the next level of optimizations.
       </div>
       <h2>Turning velocity into something visible</h2>
       <p>
@@ -216,9 +220,9 @@ grid.get(key).push(ball);</pre>
       </p>
       <pre
         class="code"
-      ><span class="const">const</span> velCum <span class="equal">=</span> Math.abs(this.velocityY) + Math.abs(this.velocityX);
-<span class="const">const</span> R <span class="equal">=</span> Math.min(<span class="num">255</span>, Math.round(velCum * <span class="num">50</span>));
-<span class="const">const</span> G <span class="equal">=</span> <span class="num">0</span>;
+      ><span class="const">const</span> velCum <span class="equal">=</span> Math.abs(this.velocityY) + Math.abs(this.velocityX); <br />
+<span class="const">const</span> R <span class="equal">=</span> Math.min(<span class="num">255</span>, Math.round(velCum * <span class="num">50</span>)); <br/>
+<span class="const">const</span> G <span class="equal">=</span> <span class="num">0</span>;<br/>
 <span class="const">const</span> B <span class="equal">=</span> <span class="num">255</span>;</pre>
       <p class="source">
         Excerpt from
@@ -226,12 +230,12 @@ grid.get(key).push(ball);</pre>
           >ball.js</a
         >.
       </p>
-      <div class="placeholder">
+      <!-- <div class="placeholder">
         <div>
           <strong>[IMAGE OR SHORT CLIP: VELOCITY COLORS]</strong>Capture a
           moment where stationary and fast-moving particles visibly contrast.
         </div>
-      </div>
+      </div> -->
       <h2>The journey in commits</h2>
       <div class="timeline">
         <p>
@@ -287,10 +291,13 @@ grid.get(key).push(ball);</pre>
         which engineering decisions matter once a simple idea grows.
       </p>
       <div class="editor">
-        [AUTHOR NOTE] Rewrite this conclusion in your own voice. Add one
-        specific thing you would do differently today. Possible subjects: fixed
-        time steps, collision-pair deduplication, profiling, or deterministic
-        tests—but only claim what you actually learned or tried.
+        This project was a massive win for me. It showed me that with research
+        time and even just a mild amount of interest I can accomplish some
+        really interesting things with a computer and learn from it on the way.
+        The engineering behind so many software tasks that involve splitting and
+        distributing tasks appropriately durring runtime is unimaginably useful.
+        I beleive this is a fundamental learning exprience to grasp as an up and
+        coming Software Engineer.
       </div>
       <h2>Try it and explore the code</h2>
       <p>
@@ -310,13 +317,13 @@ grid.get(key).push(ball);</pre>
           >View Physics-Sym on GitHub ↗</a
         >
       </p>
-      <div class="placeholder">
+      <!-- <div class="placeholder">
         <div>
           <strong>[FINAL VIDEO OR EMBED]</strong>Optional interactive demo,
           15–30-second recording, or a side-by-side comparison of early and
           later builds.
         </div>
-      </div>
+      </div> -->
       <hr />
       <p class="tags">
         VANILLA JAVASCRIPT · HTML5 CANVAS · COLLISION DETECTION · SPATIAL

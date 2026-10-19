@@ -61,6 +61,8 @@ body {
   padding: 1em;
   color: #fff;
   box-shadow: 0 0.5em 1.25em 0.2em #ccc;
+  max-width: 100%;
+  text-wrap: wrap;
 }
 
 .markup .code .const {

@@ -1,113 +1,152 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { PrismaClient } from "@prisma/client";
-import { GrNotes } from "react-icons/gr";
+import { ArrowLeft, ArrowUpRight, BookOpen, CalendarDays, Clock3 } from "lucide-react";
+
 const prisma = new PrismaClient();
 
-type Post = {
-  id: string;
-  title: string;
-  desc: string;
-  featured: boolean;
-  headerImg: string;
-  likes: number;
-  markup: string;
-  createdAt: Date;
-  updatedAt: Date;
-  categoryid: string | null;
+export const dynamic = "force-dynamic";
+
+type PageProps = {
+  params: Promise<{ id: string }>;
 };
 
-const page = async ({ params }: { params: { id: string } }) => {
-  const getPost = async () => {
-    "use server";
-    const post: Post | null = await prisma.blogPost.findUnique({
-      where: {
-        id: params.id,
-      },
-    });
-    if (!post) {
-      const defaultPost = {
-        id: "1i30hr403u09eu",
-        title: "No posts to show you. Sorry",
-        desc: "So sorry. Come back later",
-        featured: false,
-        headerImg: "",
-        likes: 0,
-        markup: `<p>: (</p>`,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        categoryid: null,
-      };
-      return defaultPost;
-    }
-    return post;
+function readingTime(html: string): number {
+  const text = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&(?:[a-z]+|#\d+|#x[\da-f]+);/gi, " ");
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 220));
+}
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const post = await prisma.blogPost.findUnique({
+    where: { id },
+    select: { title: true, desc: true },
+  });
+
+  if (!post) return { title: "Article not found | Ryan Large" };
+
+  return {
+    title: `${post.title} | Ryan Large`,
+    description: post.desc,
   };
+}
 
-  const post: Post = await getPost();
+export default async function ArticlePage({ params }: PageProps) {
+  const { id } = await params;
+  const post = await prisma.blogPost.findUnique({ where: { id } });
 
-  const getTimeDuration = () => {
-    const lengthOfMarkup = post.markup.length;
-    const minutes = Math.floor(Math.floor(lengthOfMarkup / 210) / 8);
-    if (minutes >= 60) {
-      return `${minutes / 60} hour read`;
-    }
-    if (minutes < 1) {
-      return "1 minute read";
-    }
-    return `${minutes} minute read`;
-  };
+  if (!post) notFound();
 
-  const duration = getTimeDuration();
+  const minutes = readingTime(post.markup);
 
   return (
-    <>
-      <head>
-        <title>{"Ryan's Dev Blog " + post.title}</title>
-        <meta name="description" content={post.desc} />
-        <link rel="shortcut icon" href={post.headerImg} type="image/x-icon" />
-      </head>
-      <body>
-        <main className="flex lg:flex-row flex-col justify-center items-center">
-          <section className="relative w-full h-screen cinzel">
+    <main className="min-h-screen bg-[#FEFEFE] text-neutral-900">
+      {/* On desktop, the image remains fixed while the article scrolls. */}
+      <div className="lg:grid lg:min-h-screen lg:grid-cols-[minmax(0,46%)_minmax(0,54%)]">
+        <aside className="relative min-h-[75svh] overflow-hidden bg-neutral-200 sm:min-h-[85svh] lg:sticky lg:top-0 lg:h-screen lg:min-h-0">
+          {post.headerImg ? (
             <img
-              src={post?.headerImg}
-              alt="header"
-              className="z-[-1] fixed lg:relative inset-0 w-full h-full object-cover"
+              src={post.headerImg}
+              alt={`Cover artwork for ${post.title}`}
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="right-0 bottom-0 left-0 absolute bg-black bg-opacity-75 p-5">
-              <h1 className="mb-10 pb-3 border-b border-b-slate-400 text-3xl md:text-4xl lg:text-6xl text-center">
-                {post?.title}
-              </h1>
-              <p>{duration}</p>
-              <div className="flex justify-between items-center">
-                <h2 className="text-xs italic">
-                  Posted by{" "}
-                  <span className="font-semibold text-sm">Ryan Large</span>
-                </h2>
-                <p>
-                  {new Date(post?.createdAt).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
-          </section>
-          <section className="flex flex-col justify-start items-center bg-slate-100 pt-40 w-full lg:h-screen lg:overflow-y-auto text-black">
-            <div className="flex justify-center items-center border-b border-b-black w-[80%]">
-              <div className="bg-gray-400-400 p-2 rounded-full translate-y-[50%]">
-                <GrNotes />
-              </div>
-            </div>
-            <div
-              dangerouslySetInnerHTML={{ __html: post?.markup }}
-              className="mt-20 px-5 md:px-10 lg:px-20 pb-10 markup"
-            ></div>
-            <div className="bg-[#FEFEFE] px-20 py-5 w-full"></div>
-          </section>
-        </main>
-      </body>
-    </>
-  );
-};
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F6F5F2] via-[#E9E8E5] to-[#D7D6D2]" />
+          )}
 
-export default page;
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+
+          <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-4 p-6 text-white sm:p-10">
+            <Link
+              href="/blog"
+              className="cinzel inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] transition-opacity hover:opacity-70"
+            >
+              <ArrowLeft size={15} strokeWidth={1.5} />
+              All Articles
+            </Link>
+            <span className="cinzel text-[10px] uppercase tracking-[0.2em] text-white/80">
+              Ryan Large / Journal
+            </span>
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-10 lg:p-12">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-px w-8 bg-white/70" />
+              <span className="cinzel text-[10px] uppercase tracking-[0.22em] text-white/80">
+                Development Journal
+              </span>
+            </div>
+            <h1 className="cinzel max-w-2xl text-3xl leading-[1.25] tracking-tight sm:text-4xl xl:text-5xl 2xl:text-6xl">
+              {post.title}
+            </h1>
+            <p className="mt-5 max-w-lg font-sans text-sm leading-7 text-white/80">
+              {post.desc}
+            </p>
+            <div className="mt-8 h-px w-full bg-white/30" />
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 font-sans text-xs text-white/85">
+              <span className="inline-flex items-center gap-2">
+                <CalendarDays size={14} strokeWidth={1.5} />
+                {formatDate(post.createdAt)}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Clock3 size={14} strokeWidth={1.5} />
+                {minutes} min read
+              </span>
+            </div>
+          </div>
+        </aside>
+
+        <article className="min-w-0 bg-[#FEFEFE]">
+          <div className="mx-auto max-w-[820px] px-6 pb-20 pt-16 sm:px-10 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-24 xl:px-16">
+            <div className="mb-12 flex items-center gap-3 border-b border-neutral-200 pb-7 text-neutral-500">
+              <BookOpen size={17} strokeWidth={1.4} />
+              <span className="cinzel text-[10px] uppercase tracking-[0.2em]">
+                An Exploration in Software
+              </span>
+            </div>
+
+            {/* Existing globally styled HTML content. Only render trusted/sanitized markup. */}
+            <div
+              className="markup min-w-0 max-w-full break-words text-neutral-800 [&_img]:h-auto [&_img]:max-w-full [&_pre]:max-w-full [&_pre]:overflow-x-auto"
+              dangerouslySetInnerHTML={{ __html: post.markup }}
+            />
+
+            <div className="mt-20 border-t border-neutral-200 pt-10">
+              <p className="cinzel text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+                Thanks for Reading
+              </p>
+              <h2 className="cinzel mt-5 text-2xl leading-snug sm:text-3xl">
+                Every project starts with curiosity.
+              </h2>
+              <p className="mt-5 max-w-lg font-sans text-sm leading-8 text-neutral-500">
+                Explore more experiments, engineering lessons, and stories from the process of building things.
+              </p>
+              <Link
+                href="/blog"
+                className="cinzel group mt-8 inline-flex items-center gap-2 border-b border-neutral-400 pb-2 text-[10px] uppercase tracking-[0.15em] transition-colors hover:border-neutral-900"
+              >
+                Explore More Articles
+                <ArrowUpRight size={15} strokeWidth={1.5} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+  );
+}
