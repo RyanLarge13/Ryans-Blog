@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 body {
-  background-color: #222;
-  color: #fff;
+  background-color: #fefefe;
+  color: #000;
 }
 
 .cinzel {

@@ -65,15 +65,15 @@ const page = async ({ params }: { params: { id: string } }) => {
         <link rel="shortcut icon" href={post.headerImg} type="image/x-icon" />
       </head>
       <body>
-        <main className="flex justify-center items-center flex-col lg:flex-row">
-          <section className="w-full h-screen relative cinzel">
+        <main className="flex lg:flex-row flex-col justify-center items-center">
+          <section className="relative w-full h-screen cinzel">
             <img
               src={post?.headerImg}
               alt="header"
-              className="object-cover w-full h-full fixed inset-0 lg:relative z-[-1]"
+              className="z-[-1] fixed lg:relative inset-0 w-full h-full object-cover"
             />
-            <div className="bg-opacity-75 bg-black absolute bottom-0 right-0 left-0 p-5">
-              <h1 className="text-3xl md:text-4xl lg:text-6xl text-center border-b border-b-slate-400 pb-3 mb-10">
+            <div className="right-0 bottom-0 left-0 absolute bg-black bg-opacity-75 p-5">
+              <h1 className="mb-10 pb-3 border-b border-b-slate-400 text-3xl md:text-4xl lg:text-6xl text-center">
                 {post?.title}
               </h1>
               <p>{duration}</p>
@@ -92,9 +92,9 @@ const page = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
           </section>
-          <section className="w-full lg:h-screen lg:overflow-y-auto flex flex-col justify-start items-center pt-40 text-black bg-slate-100">
-            <div className="border-b border-b-black flex justify-center items-center w-[80%]">
-              <div className="translate-y-[50%] bg-purple-400 rounded-full p-2">
+          <section className="flex flex-col justify-start items-center bg-slate-100 pt-40 w-full lg:h-screen lg:overflow-y-auto text-black">
+            <div className="flex justify-center items-center border-b border-b-black w-[80%]">
+              <div className="bg-gray-400-400 p-2 rounded-full translate-y-[50%]">
                 <GrNotes />
               </div>
             </div>
@@ -102,7 +102,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               dangerouslySetInnerHTML={{ __html: post?.markup }}
               className="mt-20 px-5 md:px-10 lg:px-20 pb-10 markup"
             ></div>
-            <div className="bg-[#222] py-5 px-20 w-full"></div>
+            <div className="bg-[#FEFEFE] px-20 py-5 w-full"></div>
           </section>
         </main>
       </body>
