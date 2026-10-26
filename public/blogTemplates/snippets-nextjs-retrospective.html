@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snippets: Building a Developer Tool While Learning Next.js</title>
+    <meta name="description" content="A look back at building Snippets with Next.js, TypeScript, Prisma, PostgreSQL, Clerk, and CodeMirror—and what the Git history reveals about learning full-stack development." />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <article class="markup">
+      <header class="intro">
+        <div class="eyebrow cinzel">Project Retrospective · Next.js · TypeScript · PostgreSQL</div>
+        <h1 class="cinzel">Snippets: Building a Developer Tool While Learning Next.js</h1>
+        <p class="lead">A place to save and share useful code became an education in full-stack architecture, authentication, rich editors, database relationships, and the difference between getting something working and understanding why it works.</p>
+        <p class="meta">Snippets · Development history: June–November 2023 · By Ryan Large</p>
+        <p><a href="https://github.com/RyanLarge13/Snippets">Explore the source on GitHub ↗</a></p>
+      </header>
+
+      <div class="placeholder">
+        <div><strong>[HERO IMAGE]</strong> Add a current screenshot of Snippets, preferably showing the code editor and a saved snippet. Suggested asset: /assets/SnippetsInsight/snippets-hero.png</div>
+      </div>
+
+      <h2>Why a snippet application?</h2>
+      <p>Most developers accumulate small pieces of code they want to keep: a useful function, a syntax pattern, a solution to an annoying bug. Snippets explored a simple idea—give those pieces of code a home where they could be saved, edited, revisited, and shared.</p>
+      <p>The repository describes a Next.js application with user accounts and CRUD operations for code snippets, plus likes, favorites, and comments. What looks like a compact productivity tool from the outside involves several connected systems underneath: an editor, authenticated users, server-side operations, and persistent relational data.</p>
+      <div class="editor">[AUTHOR NOTE: What originally made you want to build Snippets? Were you collecting code for yourself, trying to build something useful for other developers, or specifically looking for a project to learn Next.js? Replace this prompt with your own memory.]</div>
+
+      <h2>From starter project to full-stack application</h2>
+      <p>The earliest recorded commit is dated June 12, 2023 and references Create Next App. A second initial commit followed on July 29. The August history shows work on branding, registration, and sign-in components. By late October, the commit messages become much more specific: syntax highlighting, authentication, server actions, and a functioning code editor.</p>
+      <p>The application uses <strong>Next.js 13</strong> with React and TypeScript. Its package manifest includes Prisma, PostgreSQL support through Prisma's client, Clerk, CodeMirror, Tailwind CSS, and Framer Motion. These choices suggest an application built around server-backed data and an interactive client-side editing experience, rather than a static gallery of code samples.</p>
+      <div class="placeholder"><div><strong>[ARCHITECTURE DIAGRAM]</strong> Browser and CodeMirror editor → Next.js application/server actions → Prisma → PostgreSQL. Show Clerk alongside the application as the authentication provider.</div></div>
+
+      <h2>The editor was its own engineering problem</h2>
+      <p>Plain text input is easy. A useful code editor is not. The dependency list includes CodeMirror's React integration, JavaScript and C++ language support, and a Monokai theme. The commit history documents that work in unusually direct terms: <em>Syntax Highlighting</em> on October 24, <em>Serverside Actions &amp;&amp; Code Editor</em> on October 26, and then <em>Finally A Text Editor That Works</em> later that day.</p>
+      <p>That sequence captures an important distinction: selecting an editor library is only the beginning. The editor still has to fit the component model, handle changing content, and cooperate with the workflow that saves it. The commit messages demonstrate iteration, although they do not tell us every specific bug encountered.</p>
+      <div class="editor">[AUTHOR NOTE: What exactly went wrong with the editor? This would be an excellent place for a short firsthand debugging story.]</div>
+      <div class="placeholder"><div><strong>[EDITOR SCREENSHOT]</strong> Capture the language selector, syntax highlighting, and snippet-editing interface. Suggested asset: /assets/SnippetsInsight/editor.png</div></div>
+
+      <h2>Authentication: changing course instead of forcing it</h2>
+      <p>On October 24, a commit records adding NextAuth. The very next day, another commit is titled <em>Scratching Next Auth</em>, with the explanation that Clerk and its features were being tested instead. The current package manifest and README both identify Clerk as the authentication solution.</p>
+      <p>This is one of the clearest architectural decisions visible in the history. Authentication is essential to associating saved code with the right user, but building and maintaining an entire identity system can distract from the core product. The switch shows a willingness to reconsider a tool when another option better fits the project at that moment.</p>
+      <p>It is also a reminder that engineering decisions are contextual. The repository records the switch, but not enough detail to declare one authentication library universally better than the other.</p>
+
+      <h2>Modeling snippets as connected data</h2>
+      <p>The Prisma schema gives a precise picture of the data model. A <code>Snippet</code> has a UUID, title, summary, code, language, and user ID. Three additional models—<code>Like</code>, <code>Favorite</code>, and <code>Comment</code>—reference snippets and hold their own IDs and user information. The relations specify cascading deletion when a parent snippet is removed.</p>
+      <pre class="code">model Snippet {
+  id        String     @id @unique @default(uuid())
+  title     String
+  summary   String
+  code      String
+  language  String
+  userId    String
+  likes     Like[]
+  favorites Favorite[]
+  comments  Comment[]
+}</pre>
+      <p class="source">Simplified excerpt from <a href="https://github.com/RyanLarge13/Snippets/blob/main/prisma/schema.prisma">prisma/schema.prisma</a>; relation annotations omitted for readability.</p>
+      <p>That structure matters because likes, favorites, and comments are not merely buttons on a page. Each requires durable state and a relationship to both a snippet and a user. The history tracks the application growing into those relationships: <em>User Page &amp;&amp; Copy To Clipboard</em> on October 27, <em>Favorites &amp;&amp; Likes</em> on October 28, and <em>Comments</em> on October 29.</p>
+      <p>By October 29–November 1, commits describe deleting snippets, updating snippets, fixing comments and updates, and deleting comments. These are the unglamorous but important operations that turn a demonstration into something users can actually maintain.</p>
+
+      <h2>Deployment had lessons of its own</h2>
+      <p>One October 24 commit added a <code>postinstall</code> script to generate an up-to-date Prisma client, explicitly mentioning dependency caching on Vercel. That is a useful example of how the production environment can expose assumptions that never become obvious while developing locally.</p>
+      <p>In November, the history records an experiment with the Vercel Edge Runtime. The final visible commit, dated November 9, reports that the experiment failed because of function-size limits and mentions testing a quicker home-page response. The repository therefore documents a <em>runtime experiment and its limitation</em>, not a successful migration to Edge.</p>
+      <div class="note"><strong>Engineering lesson:</strong> A framework feature or deployment runtime is not automatically an optimization. Bundle size, dependencies, platform constraints, and the actual workload determine whether it helps.</div>
+
+      <h2>The development story, told through commits</h2>
+      <div class="timeline">
+        <p><time>JUNE–AUGUST 2023</time><br /><strong>Foundation.</strong> Next.js starter, branding, and early account interfaces.</p>
+        <p><time>OCTOBER 24–25</time><br /><strong>Editor and identity.</strong> Syntax highlighting, TypeScript friction, a NextAuth experiment, and a switch toward Clerk. <a href="https://github.com/RyanLarge13/Snippets/commit/f264de5b5b15a5da0ca1d5602ee36e7fb3321efb">Authentication pivot ↗</a></p>
+        <p><time>OCTOBER 25–26</time><br /><strong>Server actions and editing.</strong> Work on server-side actions and a usable code editor. <a href="https://github.com/RyanLarge13/Snippets/commit/fb0fea83d0a48951b370234656c8a5279f9f493b">Editor milestone ↗</a></p>
+        <p><time>OCTOBER 27–29</time><br /><strong>Social features.</strong> User pages, copy-to-clipboard, likes, favorites, and comments.</p>
+        <p><time>OCTOBER 29–NOVEMBER 1</time><br /><strong>Completing workflows.</strong> Deletion, updates, comment fixes, and cleanup.</p>
+        <p><time>NOVEMBER 9</time><br /><strong>Testing platform limits.</strong> Vercel Edge Runtime experiment encounters function-size limits. <a href="https://github.com/RyanLarge13/Snippets/commit/f2de14b3cecf609a2fb54d96e2d7825e8a354b6b">Runtime experiment ↗</a></p>
+      </div>
+
+      <h2>What I'd revisit today</h2>
+      <p>Looking at an older project is an opportunity to ask better questions, not just to criticize earlier decisions. The current schema stores user IDs directly on snippets and interaction records; a fresh design review could examine ownership checks, uniqueness rules for likes and favorites, and which constraints should be enforced by the database rather than only by application logic.</p>
+      <p>I'd also review how the editor manages local state, loading and saving feedback, error handling, and how much code needs to execute in the browser. These are <em>review ideas</em>, not claims that the existing implementation is broken. A proper assessment would require testing the running application and tracing the relevant handlers.</p>
+      <div class="editor">[AUTHOR NOTE: What would you personally change if you rebuilt Snippets now? Include at least one decision you still stand by and one you would approach differently.]</div>
+
+      <h2>Why Snippets still belongs in my portfolio</h2>
+      <p>Snippets isn't notable because it uses a long list of libraries. It is notable because it connects them around a coherent problem. The application needed users, persistent content, a real editing experience, and ways for people to interact with saved code. The commit history shows those pieces being assembled incrementally, with failed experiments and fixes left visible.</p>
+      <p>For an early Next.js project, that is meaningful progress. It marks a shift from making pages to designing a system—and learning that the space between those two things is where much of software engineering happens.</p>
+      <p><a href="https://github.com/RyanLarge13/Snippets">View Snippets on GitHub ↗</a> · <a href="https://github.com/RyanLarge13/Snippets/commits/main/">Browse the commit history ↗</a></p>
+      <div class="note"><strong>Before publishing:</strong> Replace the author-note prompts with your own recollections, add screenshots, test any live demo URL, and verify the blog's HTML renderer accepts the markup as expected. This is a draft for editorial review.</div>
+    </article>
+  </body>
+</html>
